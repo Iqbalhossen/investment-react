@@ -1,0 +1,178 @@
+nav {
+  background-color: #d1d1d1;
+}
+
+.menu {
+  border-right: 3px dotted #262626;
+}
+
+.nav-item {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nav-item a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #262626;
+  position: relative;
+  /* -webkit-text-stroke:  rgb(0, 0, 0); */
+
+}
+
+ul li a::before {
+  content: attr(data-text);
+  position: absolute;
+  color: rgb(61, 61, 61);
+  width: 0%;
+  overflow: hidden;
+  transition: 1s;
+  /* border-right: 4px dotted  rgb(55, 53, 53); */
+}
+
+ul li a:hover::before {
+  width: 100%;
+  -webkit-text-stroke: 1px rgba(46, 45, 45, 0.874);
+}
+
+.join {
+  color: #262626;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0px 10px;
+
+}
+
+.join:hover {
+  color: #050505;
+}
+
+.login {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px 20px;
+  color: #262626;
+  border: 2px solid #262626;
+  border-radius: 30px;
+  margin: 0px 10px;
+}
+
+
+.mobile-menu {
+  display: none !important;
+}
+
+@media (min-width: 0px) and (max-width: 991.99px) {
+  .mobile-menu {
+    display: block !important;
+    /* padding-bottom: 10px !important; */
+    margin-bottom: 0px !important;
+    margin-bottom: -16px !important
+  }
+
+  .mobile-menu-fixed {
+    margin: 0px auto;
+    width: 100%;
+  }
+
+  .menuBar {
+    display: none !important;
+  }
+}
+
+@media (min-width: 801px) {
+
+  .menu {
+    display: block !important;
+  }
+
+}
+
+
+
+
+/* @media(min-width: 0px) and (max-width: 430px) {
+  
+   }
+   
+   @media (min-width: 430.1px) and (max-width: 575.98px) {
+     
+     
+    }
+   
+   
+   
+   @media (min-width: 768px) and  (max-width: 992px) {
+     
+  
+    } */
+.menu-item svg {
+  color: #262626;
+  font-size: 25px;
+  padding: 10px 20px;
+  /* border: 1px solid black;
+  border-radius: 5px; */
+}
+
+
+.MuiPaper-root {
+  top: 0px !important;
+  right: 0px !important;
+  left: 0px !important;
+  height: 100%;
+  max-height: calc(100% - 0px) !important;
+  max-width: calc(100% - 0px) !important;
+}
+
+.MuiPaper-root li {
+  font-size: 20px !important;
+  padding: 2px;
+}
+
+.MuiMenuItem-gutters {
+  font-size: 20px !important;
+  padding: 2px;
+  color: #262626 !important;
+}
+
+.MuiPaper-root ul {
+  padding: 5%;
+}
+
+.close svg {
+  font-size: 20px;
+
+  text-align: right !important;
+}
+
+.menu-close-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 0px 10px !important;
+  margin-bottom: 15px;
+}
+
+.menu-hover a:hover {
+  background-color: #8345E6;
+  border-radius: 10px;
+}
+
+
+.menu-sign-login {
+  border-top: 1px solid #8345E6;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0px 10px !important;
+  margin-top: 15px;
+
+}
+
+.menu-sign-login a {
+  padding: 10px 20px;
+  font-size: 20px !important;
+}
+.menu-or li{
+  color: #8345E6 !important;
+  font-weight: 500;
+}

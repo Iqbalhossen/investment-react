@@ -1,0 +1,30 @@
+
+.choose-title p {
+    color: #979797;
+    width: 60%;
+    margin: auto;
+    font-size: 18px;
+    line-height: 33px;
+}
+
+.choose-single-card {
+    margin: 10px;
+    background-color: red;
+}
+
+.choose-single-card img {
+    width: 70%;
+    height: auto;
+}
+
+.choose-single-card h2 {
+    font-size: 20px;
+}
+
+.choose-single-card p {
+    color: #979797;
+    font-size: 16px;
+    line-height: 25px;
+    text-align: left;
+
+}

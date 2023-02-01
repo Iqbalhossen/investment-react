@@ -1,0 +1,31 @@
+@media (min-width: 0px) and (max-width: 767.9px) {
+    .total-calculate{
+       display: none;
+    }
+
+    .mobile-balance-show small{
+       font-size: 10px;
+       margin: 0px 5px;
+    }
+
+    .withdraw-img img{
+        display: none;
+    }
+    .deposit-title h1{
+        font-size: 18px;
+    }
+    .mobile-balance-show hr{
+        margin: 8px 0px;
+    }
+    
+}
+@media (min-width: 768px) {
+    .mobile-balance-show{
+       display: none;
+    }
+    
+}
+
+.deposit-form-area{
+    margin: 0px !important;
+}

@@ -1,0 +1,35 @@
+.diamond-line-centered-theme-colored {
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding-bottom: 5px;
+    position: relative;
+  }
+  .diamond-line-centered-theme-colored:after {
+    background: #ffae11;
+    bottom: 0;
+    content: "";
+    height: 3px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    width: 90px;
+  }
+  .diamond-line-centered-theme-colored:before {
+    box-shadow: 0 0 3px 3px rgba(255, 174, 17, 0.4);
+    background: #ffae11;
+    border: 3px solid #fff;
+    bottom: -5px;
+    content: "";
+    height: 14px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    width: 14px;
+    z-index: 3;
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }

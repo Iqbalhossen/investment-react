@@ -1,0 +1,139 @@
+
+.profile-btn a{
+    color: #979797;
+    font-size: 15px;
+    font-weight: 600;
+    width: 20px;
+    margin: 0px 18px;
+}
+.profile-btn a:hover{
+    border-bottom: 2px solid  #8345E6;
+    width: 10px;
+  }
+.billing-btn a{
+    color: #494949;
+   
+    font-size: 15px;
+    font-weight: 600;
+    width: 20px;
+    padding: 0px 8px;
+}
+
+.billing-btn a:hover{
+  border-bottom: 2px solid  #8345E6;
+  width: 10px;
+}
+.profile-social-icon svg{
+    font-size: 34px;
+    margin: 8px;
+    padding: 3px 3px;
+}
+.profile-social-icon svg:hover{
+    color: #fff;
+    background-color: black;
+    padding: 3px 3px;
+    border-radius: 50%;
+}
+.profile-section{
+    background-color: #F8FAFB;
+}
+
+.profile-img img{
+    width: 45%;
+    height: auto;
+    border-radius: 50%;
+    margin-top: -115px;
+}
+.profile-img  h2{
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.profile-img  h5{
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 500;
+}
+.profile-details h1{
+font-size: 20px;
+font-weight: 700;
+}
+
+.showContent{
+    display: block;
+}
+.invite-btn {
+    margin-top: 10px;
+}
+
+.invite-btn a{
+    color: #F8FAFB;
+    background-color: #8345E6;
+    padding: 7px 75px;
+    border-radius: 10px;
+}
+.invite-btn a:Hover{
+    color: #F8FAFB;
+    background-color: #7326ef;
+    padding: 7px 75px;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+.total{
+    background: #525252;  
+    background: -webkit-linear-gradient(to right, #3d72b4, #525252);  
+    background: linear-gradient(to right, #3d72b4, #525252);  
+    
+}
+
+.card-image h3{
+    color:#fff;
+    font-size: 9px;
+    font-weight: 700;
+}
+.card-image h3 svg{
+    font-size: 32px;
+}
+
+.price svg{
+    color:#fff;
+    font-size: 17px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.price p{
+    color:#fff;
+    margin: 0px !important;
+    font-size: 12px;
+}
+.Withdrawal{
+
+    background: #6A9113;  
+    background: linear-gradient(to right, #141517, #6A9113);  
+    
+}
+
+@media (min-width:0px) and  (max-width: 768px) {
+     
+    .profile-hide{
+        display: none;
+    } 
+  
+} 
+@media (min-width:768.1px) and  (max-width: 991px) {
+    .mobile-hide{
+        display: none;
+    } 
+   
+  
+} 

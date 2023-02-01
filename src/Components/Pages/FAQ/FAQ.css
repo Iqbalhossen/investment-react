@@ -1,0 +1,83 @@
+.faq{
+    height: 200px;
+    width: auto;
+    text-align: center;
+}
+
+.faq .silder-overlay{
+    height: 200px !important;
+    width: auto !important;
+}
+
+@media(min-width: 0px) and (max-width: 430px) {
+    .faq{
+        height: 100px;
+        width: auto;
+        text-align: center;
+    }
+    
+    .faq .silder-overlay{
+        height: 100px !important;
+        width: auto !important;
+    }
+
+    .faq h1{
+        font-size: 16px !important;
+    }
+    .faq p{
+        font-size: 10px !important;
+        margin-top: 5px;
+    }
+
+    
+}
+
+@media (min-width: 430.1px) and (max-width: 575.98px) {
+    .faq{
+        height: 100px;
+        width: auto;
+        text-align: center;
+    }
+    
+    .faq .silder-overlay{
+        height: 100px !important;
+        width: auto !important;
+    }
+
+    .faq h1{
+        padding-top: 10px;
+        font-size: 16px !important;
+        line-height: 25px;
+    }
+    .faq p{
+        font-size: 10px !important;
+        margin-top: 0px;
+    }
+ }
+
+
+
+@media (min-width: 576px) and  (max-width: 992px) {
+    .faq{
+        height: 150px !important;
+        width: auto;
+        text-align: center;
+        padding:  0px !important;
+        align-items: center;
+    }
+    
+    .faq .silder-overlay{
+        height: 150px !important;
+        width: auto !important;
+    }
+
+    .faq h1{
+        padding-top: 30px;
+        font-size: 16px !important;
+        line-height: 25px;
+    }
+    .faq p{
+        font-size: 10px !important;
+        margin-top: 0px;
+    }
+ }

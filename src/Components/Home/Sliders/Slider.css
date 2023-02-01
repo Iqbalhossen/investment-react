@@ -1,0 +1,267 @@
+.sliders {
+  height: 535px;
+  width: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+}
+
+.silder-overlay {
+  height: 535px !important;
+  width: 100% !important;
+    background-color: rgb(23 23 23 / 66%) !important;
+}
+
+.slider-content h1 {
+  color: azure;
+  font-size: 45px;
+  font-weight: 700;
+  line-height: 60px;
+  opacity: 1;
+}
+
+.slider-content h2 {
+  color: #FFFF33;
+  padding: 20px 0px;
+  font-size: 45px;
+  font-weight: 800;
+}
+
+.slider-content p {
+  color: azure;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.slider-img {
+  text-align: center;
+
+}
+
+.slider-img img {
+  border: 10px solid #2C1400;
+  border-radius: 50%;
+  width: 420px;
+  height: auto;
+}
+
+.explore-btn {
+  color: #262626;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid #8345E6;
+  border-radius: 10px;
+  background-color: #8345E6;
+  padding: 15px 20px;
+  margin-right: 20px;
+}
+
+.explore-btn:hover {
+  color: azure;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid #8345E6;
+  border-radius: 10px;
+  background-color: #262626;
+  padding: 15px 20px;
+  margin-right: 20px;
+
+}
+
+.create-btn {
+
+  color: azure;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid #8345E6;
+  border-radius: 10px;
+  background-color: #262626;
+  padding: 15px 20px;
+  margin-left: 20px;
+
+}
+
+.create-btn:hover {
+
+  color: #262626;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid #8345E6;
+  border-radius: 10px;
+  background-color: #8345E6;
+  padding: 15px 20px;
+  margin-left: 20px;
+
+}
+
+
+
+@media(min-width: 0px) and (max-width: 430px) {
+  .sliders {
+    height: 280px;
+    width: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+  }
+  
+  .silder-overlay {
+    height: 280px !important;
+    width: 100%;
+      background-color: rgb(23 23 23 / 66%);
+  }
+
+  .sliders div {
+    padding: 10px 10px !important;
+  }
+
+  .slider-img img {
+    display: none;
+    border: none;
+
+  }
+
+  .slider-btn {
+    text-align: center;
+  }
+
+  .explore-btn {
+    font-size: 12px;
+    padding: 6px 6px;
+    margin-right: 10px;
+  }
+
+  .explore-btn:hover {
+    font-size: 12px;
+    padding: 6px 6px;
+  }
+
+  .create-btn {
+    font-size: 12px;
+    padding: 6px 6px;
+    margin-left: 10px;
+  }
+
+  .create-btn:hover {
+    font-size: 12px;
+    padding: 6px 6px;
+  }
+
+  .slider-content h1 {
+    font-size: 20px;
+    line-height: 20px;
+    margin-bottom: 0px;
+  }
+
+  .slider-content h2 {
+    padding: 2px 0px;
+    font-size: 20px;
+  }
+
+  .slider-content p {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
+
+  .slider-br {
+    display: none;
+  }
+}
+
+@media (min-width: 430.1px) and (max-width: 575.98px) {
+
+  .sliders {
+    padding-bottom: 100px !important;
+    /* padding: 0px 20px; */
+  }
+
+  .slider-img img {
+    display: none;
+    border: none;
+
+  }
+
+  .slider-btn {
+    text-align: center;
+  }
+
+  .slider-content h1 {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+  .sliders {
+    padding-bottom: 200px !important;
+    position: relative;
+  }
+
+  .sliders div {
+    padding: 1px 1px !important;
+    /* margin: 10px; */
+  }
+
+  .slider-img img {
+    display: none !important;
+
+  }
+
+  .slider-btn {
+    margin-top: 30px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+
+  .sliders {
+    /* padding: 20px 10px 100px 10px; */
+    padding-bottom: 160px !important;
+
+
+  }
+
+  .sliders div {
+    padding: 2px 2px !important;
+  }
+
+  .slider-content h1 {
+
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 50px;
+  }
+
+  .slider-content h2 {
+    font-size: 35px;
+  }
+
+  .slider-content p {
+    color: azure;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .slider-img img {
+    width: 355px;
+
+  }
+
+  .slider-btn {
+    margin-top: 30px !important;
+  }
+}
+
+@media (min-width: 0px) and  (max-width: 432px) {
+     
+  .Work-section {
+    margin-top: 100px;
+    position: relative;
+  }
+  
+  .work {
+    margin-top: 60px;
+    background-color: #fff;
+  }
+ } 

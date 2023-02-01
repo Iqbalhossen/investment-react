@@ -1,0 +1,107 @@
+.about{
+    text-align: center;
+    background-color: #7e7c96b5;
+}
+.about-title h1{
+    font-size: 40px;
+    line-height: 50px;
+    color:  #5D5C73;
+}
+.about-sub-title p{
+    font-size: 18px;
+    line-height: 27px;
+    color: #8C7777;
+}
+
+.about-image img{
+    width: 100%;
+}
+.about-maddile hr{
+    border-top: 3px solid #A3A2B4;
+}
+
+.about-maddile h5{
+    font-size: 20px;
+    line-height: 28px;
+    color: #383838;
+    margin-bottom: 15px;
+}
+.about-maddile p{
+    font-size: 16px;
+    line-height: 25px;
+    color: #626265;
+    margin-bottom: 5px;
+}
+
+.company-author div div div{
+    background: linear-gradient(90deg, hsla(180, 100%, 77%, 1) 10%, hsla(204, 91%, 57%, 1) 97%);
+
+}
+.company-author  svg{
+  font-size: 50px;
+}
+
+.company-author p{
+    text-align:justify;
+    font-size: 16px;
+    list-style: 30px;
+}
+
+
+@media(min-width: 0px) and (max-width: 430px) {
+    .about-maddile h5{
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .about-title h1{
+        font-size: 23px;
+        line-height: 30px;
+    }
+    .about-sub-title p{
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    
+}
+
+@media (min-width: 430.1px) and (max-width: 575.98px) {
+  
+    .about-maddile h5{
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .about-title h1{
+        font-size: 23px;
+        line-height: 30px;
+    }
+    .about-sub-title p{
+        font-size: 16px;
+        line-height: 24px;
+    }
+ }
+
+
+
+@media (min-width: 576px) and  (max-width: 992px) {
+  
+    .about-maddile h5{
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .about-title h1{
+        font-size: 24px;
+        line-height: 30px;
+    }
+    .about-sub-title p{
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .about-maddile p{
+        font-size: 14px;
+        line-height: 24px;
+    }
+ }

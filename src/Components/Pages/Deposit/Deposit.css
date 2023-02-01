@@ -1,0 +1,88 @@
+.deposit-form-area small{
+    font-size: 14px;
+    font-weight: 600;
+}
+.deposit-input label{
+    font-size: 14px;
+    font-weight: 600;
+    color:  #979797;
+}
+.usd-networks{
+    border: 1px solid  #575E95;
+    padding: 10px 10px;
+}
+.usd-networks h3{
+    font-size: 14px;
+    font-weight: 600;
+}
+.deposit-form-area small{
+    font-size: 14px;
+    color:  #979797;
+    margin-bottom: 10px;
+}
+.deposit-form-area h4{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.deposit-title h1{
+    font-size: 25px;
+}
+.deposit-title svg{
+    font-size: 20px;
+    margin: 10px 10px;
+    align-items: center;
+}
+
+
+.network-btn{
+    font-size: 12px;
+    text-align: center;
+    padding: 6px 15px;
+    border-radius: 10px;
+    border: none;
+    margin: 5px 5px;
+}
+.network-btn:hover{
+    background-color:  #575E95;
+    
+}
+
+.deposit-btn-submit:hover{
+    background-color:  #575E95;
+    color: #fff;
+}
+
+.wallet-address-copy{
+    width: 80% !important;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+@media (min-width: 0px) and (max-width: 767.9px) {
+     .total-calculate{
+        display: none;
+     }
+
+     .mobile-balance-show small{
+        font-size: 10px;
+        margin: 0px 5px;
+     }
+     .network-btn-group{
+        margin: 0px;
+     }
+     
+}
+@media (min-width: 768px) {
+     .mobile-balance-show{
+        display: none;
+     }
+     
+}

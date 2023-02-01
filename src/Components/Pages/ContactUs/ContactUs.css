@@ -1,0 +1,36 @@
+.contact-details{  
+    background: linear-gradient(90deg, hsla(180, 100%, 77%, 1) 10%, hsla(204, 91%, 57%, 1) 97%);
+}
+
+.contact-form {
+    margin: 0px !important;
+    margin-right: 0px !important;
+    width: 100%;
+}
+
+.contact-form h1{
+    font-size: 25px;
+    color:  #383838;
+}
+
+.contact-details h2{
+    font-size: 25px;
+    color:  #383838;
+    padding: 0px 20px;
+}
+.contact-info{
+    margin-top: 20px;
+    font-size: 25px;
+    color:  #383838;
+    padding: 0px 20px;
+}
+.contact-info svg{
+    font-size: 25px;
+    color:  #383838;
+    margin-right: 20px;
+}
+.contact-info p{
+    font-size: 16px;
+    color:   #626265;
+    margin-left: 20px;
+}

@@ -1,0 +1,81 @@
+.mobile-image svg{
+    font-size: 45px;
+}
+.mobile-section{
+    margin: 0px !important;
+   
+}
+
+.mobile-content{
+    padding: 0px 20px;
+}
+.mobile-content h1{
+    font-size: 16px;
+    line-height: 10px;
+}
+.mobile-content p{
+   font-size: 10px;
+   color: #666666;
+   line-height: 17px;
+   /* width: 90%; */
+}
+
+.arrow svg{
+font-size: 20px;
+}
+.arrow svg:hover{
+color: #8345E6;
+}
+
+.total{
+    background-color: red;
+}
+
+.padding-menu{
+    margin-top: 0px;;
+}
+.mobile-header{
+    margin-left: 0px;
+}
+.menu-user-profile img{
+    width: 20%;
+    border-radius: 50%;
+}
+.menu-user-profile h2{
+   font-size: 14px;
+}
+.mobile-table-details h1{
+    font-size: 16px;
+}
+.mobile-table-details th{
+    font-size: 12px;
+}
+.mobile-table-details td{
+    font-size: 10px;
+}
+div .scroll {
+    background-color: lightblue;
+    width: 40px;
+    overflow-x: scroll;
+  }
+@media (min-width:767px) and  (max-width: 1768px) {
+     
+    .mobile-hide{
+        display: none;
+    } 
+    .view-mobile-services{
+        display: none;
+    }
+  
+}
+
+
+.deposit-mobile-details h1{
+    font-size: 16px;
+}
+.deposit-mobile-details th{
+    font-size: 12px;
+}
+.deposit-mobile-details td{
+    font-size: 10px;
+}

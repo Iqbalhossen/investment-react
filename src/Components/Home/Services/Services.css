@@ -1,0 +1,160 @@
+.services-header h1 {
+    font-size: 35px;
+    font-weight: 600;
+    display: flex;
+    margin-right: 20px;
+    justify-content: center;
+}
+
+.services-header h2 {
+    color: #8345E6;
+    font-size: 35px;
+    font-weight: 600;
+    display: flex;
+    margin-left: 15px;
+    justify-content: center;
+}
+
+.services-header p {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.service-item svg {
+    font-size: 25px;
+    color: #8345E6;
+    padding: 20px;
+    border: 1px solid #666666;
+    border-radius: 35%;
+}
+
+.service-item svg:hover {
+    font-size: 25px;
+    color: #8345E6;
+    background-color: #666666;
+    padding: 20px;
+    border: 1px solid #666666;
+    border-radius: 35%;
+}
+
+.service-item{
+    padding: 20px 0px;
+  }
+
+
+.service-image img{
+width: 100%;
+}
+.service-line {
+    margin-top: 10px !important;
+  }
+
+
+.service-line:after {
+    right: 95% !important;
+    width: 60px !important;
+  }
+  .service-line:before {
+    right: 92% !important;
+  }
+
+
+@media(min-width: 0px) and (max-width: 430px) {
+
+
+    .services{
+        text-align: justify !important;
+        padding: 0px 15px !important;
+        
+    }
+  .service-image{
+    display: none;
+  }
+  .service-item{
+    padding: 10px 20px;
+  }
+  .services-header{
+    text-align: center;
+  }
+  .services-new-details{
+    margin: 0px !important;
+  }
+  
+  }
+  
+  @media (min-width: 430.1px) and (max-width: 575.98px) {
+    .services{
+        text-align: justify !important;
+        padding: 0px 15px !important;
+        
+    }
+  .service-image{
+    display: none;
+  }
+  .service-item{
+    padding: 10px 40px;
+  }
+  .services-new-details{
+    margin: 0px !important;
+  }
+    
+   }
+  
+  @media (min-width: 576px) and  (max-width: 767.98px) {
+    .services{
+        text-align: justify !important;
+        padding: 0px 15px !important;
+        
+    }
+  .service-image{
+    display: none;
+  }
+  .service-item{
+    padding: 10px 40px;
+  }
+   
+   }
+  
+  @media (min-width: 768px) and  (max-width: 992px) {
+    .service-image{
+        display: none;
+      }
+
+      .service-item{
+        padding: 20px 0px;
+      }
+ 
+   }
+
+   .diamond-line-centered-theme-colored2 {
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding-bottom: 5px;
+    position: relative;
+  }
+  .diamond-line-centered-theme-colored2:after {
+    bottom: 0;
+    content: "";
+    height: 3px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    width: 90px;
+  }
+  .diamond-line-centered-theme-colored2:before {
+    border: 3px solid #fff;
+    bottom: -5px;
+    content: "";
+    height: 14px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    width: 14px;
+    z-index: 3;
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }

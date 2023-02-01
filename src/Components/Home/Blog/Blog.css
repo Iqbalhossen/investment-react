@@ -1,0 +1,46 @@
+.blogs{
+    background-color: #fff;
+    padding: 20px 0px;
+}
+.blog-header h1{
+    display: inline;
+    font-size: 35px;
+}
+.blog-header h2{
+    display: inline;
+    font-size: 35px;
+    color: #8345E6;
+}
+.blog-header{
+    font-size: 20px;
+    line-height: 30px;
+    width: 75%;
+    margin:auto ;
+}
+a .card-title{
+    color: black;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+}
+a .card-title:hover{
+    color: #8345E6;
+
+}
+.card-text{
+    font-size: 14px;
+    line-height: 20px;
+    color: #979797;
+}
+.blog-view-details-btn a{
+    color: #fff;
+    background-color: #8345E6;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+.blog-view-details-btn a:hover{
+    color: #fff !important;
+    background-color: #262626;
+    
+}
