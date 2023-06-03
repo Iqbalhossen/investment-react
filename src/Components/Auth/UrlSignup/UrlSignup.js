@@ -6,7 +6,7 @@ const UrlSignup = () => {
 
      let { InviteUserName } = useParams();
 
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const {  LoginWithEmail, authUser } = useContext(AuthContext);
 
     const [userData, setUserData] = useState({});
 
@@ -18,10 +18,12 @@ const UrlSignup = () => {
     const handleRegister = event => {
         event.preventDefault();
         // console.log(user);
-        fetch('https://crypto-iqbalhossen.vercel.app/api/user/create', {
+        fetch('http://localhost:5000/api/user/create', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'authorization':
+                'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
             },
             body: JSON.stringify(user)
         })
@@ -47,7 +49,7 @@ const UrlSignup = () => {
         let setTime = new Date();
         const value = event.target.value;
         const field = event.target.name;
-        const newUser = { ...user, picture: null, status: 0, reference:InviteUserName, created_at: setTime };
+        const newUser = { ...user, picture: null, bio:null, status: true, reference:InviteUserName, created_at: setTime };
         // console.log(newUser);
         newUser[field] = value;
 
@@ -63,7 +65,7 @@ const UrlSignup = () => {
                         <div className='sign-content py-4'>
                             <h1>Signup</h1>
                         </div>
-                        <Form onSubmit={handleRegister}>
+                        <form onSubmit={handleRegister}>
                         <span>{userData.message}</span>
                         
                         <div className='sign-input mb-4'>
@@ -98,7 +100,7 @@ const UrlSignup = () => {
                             </label>
                         </div>
                         <button type="submit" className="btn btn-primary">Signup</button>
-                        </Form>
+                        </form>
                     </div>
                     <div className='col-lg-6 col-md-6 col-12   p-5'>
                         <img src=" https://brandio.io/envato/iofrm/html/images/graphic4.svg" className="card-img-top" alt="..." />

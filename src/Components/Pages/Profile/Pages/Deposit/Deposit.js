@@ -4,14 +4,20 @@ import SingleDeposit from './SingleItem';
 
 const Deposit = () => {
 
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
     const [deposit, setDeposits] = useState([]);
     const totaldata = deposit.data;
 
         useEffect(() => {
             if (authUser) {
-                fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/view/${authUser.userName}`)
+                fetch(`http://localhost:5000/api/user/deposit/view/${authUser.userName}`, {
+                    method: 'GET',
+                    headers: {
+                        'authorization':
+                            'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                    },
+                })
                     .then(res => res.json())
                     .then(data => {
                         setDeposits(data.data);

@@ -3,14 +3,20 @@ import { AuthContext } from '../../../../../Contexts/AuthContext/AuthProvider';
 import SingleItem from './SingleItem';
 
 const TeamSellsBonus = () => {
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
     // console.log(userTotalroi)
 
     const [Totalteam, setTotalteam] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/team/sells/bonus/${authUser.userName}`)
+        fetch(`http://localhost:5000/api/user/bonus/team/sells/bonus/${authUser.userName}`, {
+            method: 'GET',
+            headers: {
+                'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+            },
+        })
             .then(res => res.json())
             .then(data => {
                 setTotalteam(data.data.data);

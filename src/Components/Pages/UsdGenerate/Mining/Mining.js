@@ -5,7 +5,7 @@ import SingleItem from './SingleItem';
 
 const Mining = () => {
 
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
 
     let { id } = useParams();
@@ -14,7 +14,13 @@ const Mining = () => {
     const [packageAmount, setpackageAmount] = useState(0);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/earning/view/${authUser.userName}/${id}`)
+        fetch(`http://localhost:5000/api/user/usd/generate/earning/view/${authUser.userName}/${id}`, {
+            method: 'GET',
+            headers: {
+                'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+            },
+        })
             .then(res => res.json())
             .then(data => {
                 setUsdGenerateMining(data.data);
@@ -37,7 +43,7 @@ const Mining = () => {
             <div className='container mt-2 '>
                 <div className="row row-cols-1 row-cols-md-2  row-cols-lg-4 g-4">
                     <div className="col">
-                        <div className="card total shadow-lg p-1  bg-body rounded border-0">
+                        <div className="card total shadow-lg usd-gen-mining-color1 p-1  bg-body rounded border-0">
                             <div className="card-body card-image">
                                 <h3><i class="fa-solid fa-bitcoin-sign"></i> Total  Roi</h3>
                                 <div className='price d-flex text-center'>
@@ -49,7 +55,7 @@ const Mining = () => {
                         </div>
                     </div>
                     <div className="col">
-                        <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
+                        <div className="card total shadow-lg usd-gen-mining-color1 p-1  bg-body rounded border-0">
                             <div className="card-body card-image">
                                 <h3><i class="fa-solid fa-money-bill-transfer"></i> Pending Roi</h3>
                                 <div className='price d-flex text-center'>
@@ -62,7 +68,7 @@ const Mining = () => {
                     </div>
 
                     <div className="col">
-                        <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
+                        <div className="card total shadow-lg usd-gen-mining-color1 p-1  bg-body rounded border-0">
                             <div className="card-body card-image">
                                 <h3><i class="fa-solid fa-money-bill-transfer"></i>Total Profit</h3>
                                 <div className='price d-flex text-center'>

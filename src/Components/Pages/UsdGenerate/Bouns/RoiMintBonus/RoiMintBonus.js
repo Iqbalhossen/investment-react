@@ -3,16 +3,24 @@ import { AuthContext } from '../../../../../Contexts/AuthContext/AuthProvider';
 import SingleItem from './SingleItem';
 
 const RoiMintBonus = () => {
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
     const [Totalroi, setTotalroi] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/roi/mint/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotalroi(data.data.data);
-                // console.log(data.data.data);
-            });
+      if(authUser){
+        fetch(`http://localhost:5000/api/user/bonus/roi/mint/bonus/${authUser.userName}`, {
+            method: 'GET',
+            headers: {
+                'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTotalroi(data.data.data);
+            // console.log(data.data.data);
+        });
+      }
 
     }, [])
 

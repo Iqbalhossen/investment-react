@@ -8,6 +8,8 @@ const SingleItem = ({ data, index }) => {
             <tr>
                 <th scope="row">{index + 1}</th>
                 <td>{data?.User_id}</td>
+                <td>{data?.networks}</td>
+                <td>{data?.transaction_id}</td>
                 <td>$ {data?.amount}</td>
                 <td>{data.status === 0 ? <span class="badge bg-danger">Pending</span> : <span class="badge bg-primary">Accept</span> }</td>
                 <td>{time}</td>

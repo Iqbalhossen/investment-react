@@ -5,7 +5,10 @@ nav {
 .menu {
   border-right: 3px dotted #262626;
 }
-
+.logo img{
+  width: 180px;
+  height: 40px;
+}
 .nav-item {
   font-size: 20px;
   font-weight: 600;
@@ -63,6 +66,10 @@ ul li a:hover::before {
 }
 
 @media (min-width: 0px) and (max-width: 991.99px) {
+  .logo img {
+    height: 30px !important;
+    width: 130px !important;
+}
   .mobile-menu {
     display: block !important;
     /* padding-bottom: 10px !important; */
@@ -175,4 +182,8 @@ ul li a:hover::before {
 .menu-or li{
   color: #8345E6 !important;
   font-weight: 500;
+}
+.logout-mobile{
+  padding: 10px 20px !important;
+  font-size: 20px !important;
 }

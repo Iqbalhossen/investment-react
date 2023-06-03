@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../../Contexts/AuthContext/AuthProvider';
 
 const Commission = () => {
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
     // const [depostis, setDeposits] = useState([]);
 
     // useEffect(() => {
-    //     fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/view/${authUser._id}`)
+    //     fetch(`http://localhost:5000/api/user/deposit/view/${authUser._id}`)
     //         .then(res => res.json())
     //         .then(data => {
     //             setDeposits(data);

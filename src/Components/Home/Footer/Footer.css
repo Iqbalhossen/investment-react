@@ -85,8 +85,11 @@
 @media(max-width: 574px){
   .footer-col{
     width: 100%;
-    text-align: center;
+    text-align: center !important;
     
+}
+.social-links{
+	justify-content: center;
 }
 .footer-col h4::before{
 	display: none;

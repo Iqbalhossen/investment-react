@@ -7,10 +7,11 @@ const SingleDeposit = ({data, index}) => {
         <>
               <tr>
                             <th >{index + 1}</th>
-                            <td>$ {data.amount}</td>
-                            <td>{data.wallet}</td>
+                            <td>{data?.networks}</td>
+                            <td>{data?.wallet}</td>
+                            <td>$ {data?.amount}</td>
+                            <td>{data?.status === 0 ? <span class="badge bg-danger">Pending</span> : '' } {data?.status === 3 ? <span class="badge bg-danger">Rejected</span> : '' }  {data.status === 1 ? <span class="badge bg-success">Accept</span> : '' }</td>
                             <td>{time}</td>
-                            <td>{data.status === 0 ? <span class="badge bg-danger">Pending</span> : '' } {data.status === 3 ? <span class="badge bg-danger">Rejected</span> : '' }  {data.status === 1 ? <span class="badge bg-success">Accept</span> : '' }</td>
                             
                         </tr>
                      

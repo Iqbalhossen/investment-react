@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import './Header.css';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { AuthContext } from '../../../Contexts/AuthContext/AuthProvider';
-
+import logo from './logo.png'
 const Header = () => {
 
     const [openMenu, setopen] = useState(null);
@@ -13,38 +13,47 @@ const Header = () => {
     const closeMenu = () => {
         setopen(false)
     }
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+
+    const { LoginWithEmail, authUser, setLoading, token } = useContext(AuthContext);
 
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/login";
-
-    const SignOut = () =>{
-    
+    const from = "/login";
+    const navigate= useNavigate();
+    const [remove, setremove] = useState(false);
+    const SignOut = () => {
+        setopen(false)
+        document.cookie = `token=; expires=${new Date(0).toUTCString()}; path=/`;
         localStorage.removeItem("ID");
-          const data = null;
-          LoginWithEmail(data);
+        const data = null;
+        LoginWithEmail(data);
+        if(authUser === null){
+            navigate(from, { replace: true });
+        }
+        setremove(true)
+    }
+    const loginout = localStorage.getItem("ID");;
 
-          console.log(authUser)
-      
-        Navigate(from, { replace: true });
-       }
 
-
+    useEffect(() => {
+        if (!loginout && remove === true) {
+            navigate(from, { replace: true });       
+        }
+    }, [remove])
 
     return (
         <>
-            <nav className='py-3 bg-body-tertiary menuBar sticky-top'>
+            <nav className='bg-body-tertiary menuBar sticky-top  '>
 
                 <div className='container'>
                     <div className='row'>
-                        <div className='col-lg-2 col-md-2 col-sm-6 col-6'>
+                        <div className='col-lg-2 col-md-2 col-sm-6 col-6 d-flex align-items-center'>
                             <Link className="logo" to="/">
-                                <img src="https://static.crowd1.com/cdn-cgi/image/width=180,format=auto,quality=100/static/assets/images/crowd-public/home/logo-light.svg" alt="" />
+                                <img src={logo} alt="" />
                                 {/* <h4>Yumeone</h4> */}
                             </Link>
                         </div>
 
-                        <div className='col-lg-7   menu'>
+                        <div className='col-lg-7 py-3  menu'>
 
                             <ul className='nav-items d-flex align-items-center m-0 justify-content-between '>
                                 <li className='nav-item'>
@@ -66,17 +75,17 @@ const Header = () => {
                             </ul>
                         </div>
 
-                        <div className='col-3 d-flex text-end align-items-center justify-content-around d-md-none d-none d-lg-block'>
-                            {authUser?._id && authUser?.userName ? 
-                            <><Link to="/account" className='join'>Account</Link>
-                            <span>or</span>
-                            <Link  data-text='&nbsp;Login' onClick={SignOut} className='login'>Logout</Link>
-                            </> :
-                            <><Link to="/signup" className='join'>Join Now</Link>
-                            <span>or</span>
-                            <Link to="/login" data-text='&nbsp;Login'  className='login'>Login</Link>
-                            </>}
-                            
+                        <div className='col-3 d-flex text-end py-3 align-items-center justify-content-around d-md-none d-none d-lg-block'>
+                            {token ?
+                                <><Link to="/account" className='join'>Account</Link>
+                                    <span>or</span>
+                                    <Link data-text='&nbsp;Login' onClick={SignOut} className='login'>Logout</Link>
+                                </> :
+                                <><Link to="/signup" className='join'>Join Now</Link>
+                                    <span>or</span>
+                                    <Link to="/login" data-text='&nbsp;Login' className='login'>Login</Link>
+                                </>}
+
                         </div>
 
                     </div>
@@ -88,12 +97,12 @@ const Header = () => {
 
             </nav>
 
-            <div className='mobile-menu sticky-top bg-light'>
+            <div className='mobile-menu sticky-top bg-light overflow-hidden'>
                 <div className='px-2  py-lg-2 mobile-menu-fixed d-flex justify-content-between align-items-center '>
                     <div className='logo'>
                         <Link className="logo" to="/">
-                            {/* <img src="https://static.crowd1.com/cdn-cgi/image/width=180,format=auto,quality=100/static/assets/images/crowd-public/home/logo-light.svg" alt="" /> */}
-                            <h4>Yumeone</h4>
+                            <img src={logo} alt="" />
+                            {/* <h4>Yumeone</h4> */}
                         </Link>
                     </div>
 
@@ -114,7 +123,7 @@ const Header = () => {
                     <MenuItem onClick={closeMenu} className='close'><i class="fa-solid fa-xmark"></i></MenuItem>
                 </div>
                 <div className='menu-hover'>
-                     <MenuItem onClick={closeMenu} as={Link} to="/" className="menu-items">Home</MenuItem>
+                    <MenuItem onClick={closeMenu} as={Link} to="/" className="menu-items">Home</MenuItem>
                     <MenuItem onClick={closeMenu} as={Link} to="/products" className="menu-items">Products</MenuItem>
                     <MenuItem onClick={closeMenu} as={Link} to="/wallets" className="menu-items">Wallet</MenuItem>
                     <MenuItem onClick={closeMenu} as={Link} to="/blogs" className="menu-items">Blog</MenuItem>
@@ -123,28 +132,35 @@ const Header = () => {
                     <div className='menu-sign-login'>
 
 
-                    {authUser?._id && authUser?.userName ? 
+                        {authUser?._id && authUser?.userName ?
                             <>
-                            <MenuItem onClick={closeMenu} as={Link} to="/account" className="menu-items">Account</MenuItem>
+                                {/* <MenuItem onClick={closeMenu} as={Link} to="/account" className="menu-items">Account</MenuItem>
                         <div className='menu-or'>
                         <MenuItem className="menu-items">Or</MenuItem>
                         </div>
                         
                     
-                        <MenuItem onClick={SignOut} className="menu-items">Logout</MenuItem>
+                        <MenuItem onClick={SignOut} className="menu-items">Logout</MenuItem> */}
+                                <MenuItem onClick={closeMenu} as={Link} to="/account" className="menu-items">Account</MenuItem>
+                                <div className='menu-or'>
+                                    <MenuItem className="menu-items">Or</MenuItem>
+                                </div>
+
+
+                                <MenuItem onClick={SignOut} className="menu-items logout-mobile">Logout</MenuItem>
                             </> :
                             <>
-                             <MenuItem onClick={closeMenu} as={Link} to="/login" className="menu-items">Login</MenuItem>
-                        <div className='menu-or'>
-                        <MenuItem className="menu-items">Or</MenuItem>
-                        </div>
-                        
-                    
-                        <MenuItem onClick={closeMenu} as={Link} to="/signup" className="menu-items">Sign Up</MenuItem>
+                                <MenuItem onClick={closeMenu} as={Link} to="/login" className="menu-items">Login</MenuItem>
+                                <div className='menu-or'>
+                                    <MenuItem className="menu-items">Or</MenuItem>
+                                </div>
+
+
+                                <MenuItem onClick={closeMenu} as={Link} to="/signup" className="menu-items">Sign Up</MenuItem>
                             </>}
-                            
-                        
-                       
+
+
+
                     </div>
 
                 </div>

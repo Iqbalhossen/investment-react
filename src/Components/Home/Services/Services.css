@@ -73,11 +73,19 @@ width: 100%;
   .service-item{
     padding: 10px 20px;
   }
+  .service-item h3{
+  font-size: 18px;
+}
   .services-header{
     text-align: center;
   }
   .services-new-details{
     margin: 0px !important;
+  }
+  .service-item img{
+    width: 87px;
+    height: auto;
+
   }
   
   }
@@ -94,8 +102,16 @@ width: 100%;
   .service-item{
     padding: 10px 40px;
   }
+  .service-item h3{
+    font-size: 20px;
+  }
   .services-new-details{
     margin: 0px !important;
+  }
+  .service-item img{
+    width: 87px;
+    height: auto;
+
   }
     
    }
@@ -111,6 +127,11 @@ width: 100%;
   }
   .service-item{
     padding: 10px 40px;
+  }
+  .service-item img{
+    width: 87px;
+    height: auto;
+
   }
    
    }
@@ -157,4 +178,11 @@ width: 100%;
     -o-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+  }
+
+  .service-item a{
+    color: black;
+  }
+  .service-item a:hover{
+    color: black;
   }

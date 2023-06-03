@@ -9,12 +9,15 @@ import WorkSection from './WorkSection/WorkSection';
 const Home = () => {
     return (
         <>
+        
+       <section className='home-page-section'> 
        <Slider></Slider>
        <WorkSection></WorkSection>
        <Services></Services>
        <Choose></Choose>
        <Success></Success>
        <Blog></Blog>
+       </section>
         </>
     );
 };

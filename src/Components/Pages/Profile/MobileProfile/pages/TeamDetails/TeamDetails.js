@@ -1,28 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../../../../Contexts/AuthContext/AuthProvider';
 import SingleItem from './SingleItem';
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import { Autoplay, Navigation } from "swiper";
-import { Pagination } from "swiper";
 import { Link } from 'react-router-dom';
 import './TeamDetails.css'
+import Slider from 'react-slick';
 
 const TeamDetails = () => {
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const { LoginWithEmail, authUser } = useContext(AuthContext);
 
 
     const [showUsdGenerate, setUsdGenerate] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/team/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setUsdGenerate(data.data.data);
-                console.log(data)
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/genegration/team/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setUsdGenerate(data.data.data);
+                    // console.log(data)
+                });
+        }
 
     }, [])
 
@@ -30,11 +33,17 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelOne/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelOne/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setFirstGen(data.data.data);
-                    console.log(data.data.data)
+                    // console.log(data.data.data)
                 });
         }
 
@@ -42,23 +51,20 @@ const TeamDetails = () => {
     }, [])
 
 
-
-
-    let FirstGenSum = 0
-    for (let i = 0; i <= FirstGen.length; i++) {
-        if (FirstGen[i]) {
-            FirstGenSum += parseFloat(FirstGen[i].amount);
-        }
-
-    }
-
+// console.log(FirstGen.length)
 
 
     const [SecoundGen, setSecoundGen] = useState([]);
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/leveltwo/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/leveltwo/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setSecoundGen(data.data.data);
@@ -74,11 +80,16 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelthree/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelthree/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setthridGen(data.data.data);
-                    console.log(data.data)
                 });
         }
 
@@ -89,7 +100,13 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelfour/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelfour/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setfourGen(data.data.data);
@@ -103,7 +120,13 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelfive/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelfive/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setfiveGen(data.data.data);
@@ -117,11 +140,16 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelsix/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelsix/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setSixGen(data.data.data);
-                    console.log(data.data.data)
                 });
         }
 
@@ -131,7 +159,13 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelseven/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelseven/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setSevenGen(data.data.data);
@@ -145,7 +179,13 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/leveleight/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/leveleight/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setEightGen(data.data.data);
@@ -159,7 +199,13 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelnine/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelnine/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setNineGen(data.data.data);
@@ -173,7 +219,13 @@ const TeamDetails = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelten/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelten/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setTenGen(data.data.data);
@@ -188,7 +240,6 @@ const TeamDetails = () => {
     const [genegrationshow, setGenegrationShow] = useState('allGen');
 
     const handleGenegration = (data) => {
-        console.log(data)
 
         if (data === "1stGen") {
             setGenegrationShow('1stGen')
@@ -228,51 +279,62 @@ const TeamDetails = () => {
 
     // console.log(genegrationshow)
 
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        autoplaySpeed: 3000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        cssEase: "linear",
+        autoplay: true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+
     return (
         <>
 
+
+
             <div className='deposit-mobile-details shadow-lg p-3 my-2 bg-body rounded '>
-                <Swiper
-                    spaceBetween={90}
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    }}
-                    // pagination={{
-                    //     clickable: true,
-                    // }}
-                    navigation={true}
-                    modules={[Autoplay]}
-                    className="mySwiper"
 
-                    breakpoints={{
-                        // when window width is >= 640px
-                        // 0: {
-                        //     width: 0,
-                        //     slidesPerView: 2,
-                        // },
-                        640: {
-                            width: 640,
-                            slidesPerView: 2,
-                        },
-                        // when window width is >= 768px
-                        1200: {
-                            width: 1200,
-                            slidesPerView: 3,
-                        },
-                    }}
-                >
-                    <div className='p-2'>
-
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded firstGen'>
-                                <div className="card Withdrawal firstGen shadow-lg p-1  bg-body rounded border-0">
+                <div className='mb-4'>
+                    <Slider {...settings}>
+                        <div>
+                            <div className=' p-1 mt-3  firstGen'>
+                                <div className="card total usd-gen-mining-color1 p-1   rounded border-0">
                                     <Link onClick={() => handleGenegration('1stGen')}>
                                         <div className="card-body card-image padding-menu" >
                                             <h3><i class="fa-solid fa-person"></i><span>1</span>st Generation</h3>
                                             <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>{FirstGenSum}</p>
+                                                <p>{FirstGen.length}</p>
 
                                             </div>
 
@@ -281,191 +343,162 @@ const TeamDetails = () => {
 
                                 </div>
                             </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded 2ndGen'>
-                                <div className="card Withdrawal secoundGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('2ndGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>2</span>nd Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className=' p-1 mt-3  2ndGen'>
+                            <div className="card total  usd-gen-mining-color1 p-1  rounded border-0">
+                                <Link onClick={() => handleGenegration('2ndGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>2</span>nd Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p>{SecoundGen.length} </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal threeGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('3rdGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>3</span>rd Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className='p-1 mt-3 '>
+                            <div className="card total  usd-gen-mining-color1 p-1   rounded border-0">
+                                <Link onClick={() => handleGenegration('3rdGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>3</span>rd Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p> {thridGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal fourGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('4thGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>4</span>th Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className='p-1 mt-3 '>
+                            <div className="card total  usd-gen-mining-color1 p-1  rounded border-0">
+                                <Link onClick={() => handleGenegration('4thGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>4</span>th Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p>{fourGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-
-
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal fiveGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('5thGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>5</span>th Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className='p-1 mt-3 '>
+                            <div className="card total  usd-gen-mining-color1 p-1   rounded border-0">
+                                <Link onClick={() => handleGenegration('5thGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>5</span>th Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p> {fiveGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-
-
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal fiveGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('6thGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>6</span>th Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className='p-1 mt-3 '>
+                            <div className="card total  usd-gen-mining-color1 p-1   rounded border-0">
+                                <Link onClick={() => handleGenegration('6thGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>6</span>th Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p>{SixGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal fiveGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('7thGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>7</span>th Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className=' p-1 mt-3 '>
+                            <div className="card total usd-gen-mining-color1 p-1   rounded border-0">
+                                <Link onClick={() => handleGenegration('7thGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>7</span>th Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p>{SevenGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal fiveGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('8thGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>8</span>th Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className=' p-1 mt-3 '>
+                            <div className="card total  usd-gen-mining-color1 p-1  rounded border-0">
+                                <Link onClick={() => handleGenegration('8thGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>8</span>th Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p>{EightGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal fiveGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('9thGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>9</span>th Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className='p-1 mt-3 '>
+                            <div className="card total usd-gen-mining-color1 p-1  rounded border-0">
+                                <Link onClick={() => handleGenegration('9thGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>9</span>th Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p>{NineGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-
-
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal fiveGen shadow-lg p-1  bg-body rounded border-0">
-                                    <Link onClick={() => handleGenegration('10thGen')}>
-                                        <div className="card-body card-image padding-menu">
-                                            <h3><i class="fa-solid fa-person"></i><span>10</span>th Generation</h3>
-                                            <div className='price d-flex text-center'>
+                        </div>
+                        <div className=' p-1 mt-3 '>
+                            <div className="card total  usd-gen-mining-color1 p-1  rounded border-0">
+                                <Link onClick={() => handleGenegration('10thGen')}>
+                                    <div className="card-body card-image padding-menu">
+                                        <h3><i class="fa-solid fa-person"></i><span>10</span>th Generation</h3>
+                                        <div className='price d-flex text-center'>
                                                 <i class="fa-solid fa-people-group"></i>
-                                                <p>$ </p>
+                                                <p>{TenGen.length}  </p>
 
                                             </div>
 
-                                        </div>
+                                    </div>
 
-                                    </Link>
+                                </Link>
 
-                                </div>
                             </div>
-                        </SwiperSlide>
-
-
-                    </div>
-
-
-                </Swiper>
+                        </div>
+                    </Slider>
+                </div>
 
                 <h1>Team Details</h1>
 

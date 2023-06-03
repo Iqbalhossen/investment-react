@@ -4,46 +4,47 @@ import { AuthContext } from '../../../Contexts/AuthContext/AuthProvider';
 import './Login.css'
 const Login = () => {
 
-    const { LoginWithEmail,setUser, authUser, setLoading } = useContext(AuthContext);
+    const { LoginWithEmail, setUser, authUser } = useContext(AuthContext);
 
     const [userData, setUserData] = useState({});
 
     const navigate = useNavigate();
     const location = useLocation();
     const userFrom = location.state?.from?.pathname || "/account";
-// console.log(authUser)
+    // console.log(authUser)
 
     const [user, setUserValue] = useState({});
-
+ 
     const handleLogin = event => {
         event.preventDefault();
-        // console.log(user);
-        fetch('https://crypto-iqbalhossen.vercel.app/api/user/login', {
+        fetch('http://localhost:5000/api/user/login', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+               'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
             },
             body: JSON.stringify(user)
         })
             .then(res => res.json())
-            .then(data => {
+            .then(data => { 
                 // console.log(data);
                 if (data.success === false) {
                     setUserData(data);
-                    console.log(data)
+                    // console.log(data)
                 } else {
                     const user = data;
                     localStorage.setItem("ID", JSON.stringify(user.data));
-                    console.log(JSON.stringify(user.data))
-                  
+                    const expires = new Date(Date.now() + 30*60*1000).toUTCString();
+                    document.cookie = `token=OiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmJ1c2VyX25hbWMzODM5NX0VzZXJfaWQiOiI2M2InVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM; expires=${expires};`;
+                    event.target.reset();
 
                     if (user.data) {
                         LoginWithEmail(user.data);
                         navigate(userFrom, { replace: true });
                     }
-                    
 
-                    
+
                     // setLoading(false);
 
                 }
@@ -51,7 +52,7 @@ const Login = () => {
 
             })
             .catch(error => <></>);
-        event.target.reset();
+        
     }
 
     const handleInputBlur = event => {
@@ -75,12 +76,12 @@ const Login = () => {
 
                     </div>
                     <div className='col-lg-6 col-md-6 col-12  p-lg-5'>
-                    {userData.message}
+                        {userData.message}
                         <div className='login-content pb-2'>
                             <h1>Login</h1>
                         </div>
 
-                        <Form onSubmit={handleLogin}>
+                        <form onSubmit={handleLogin}>
                             <div className='login-input mb-4'>
                                 <label><i className="fa-solid fa-user"></i></label>
                                 <input type="email" name="email" onBlur={handleInputBlur} placeholder='Email Address' />
@@ -95,18 +96,23 @@ const Login = () => {
                                 <label className="form-check-label" >
                                     I agree to the terms of service
                                 </label>
+                                <label className="form-check-label ms-4" >
+                                    <Link to='/forgot'>Forgot Password</Link>
+                                </label>
                             </div>
                             <button type="submit" className="btn btn-primary">Login</button>
 
-                        </Form>
+                        </form>
                     </div>
 
                     <div className='col-lg-6 col-md-6 col-12   p-5 login-image'>
                         <img src="https://brandio.io/envato/iofrm/html/images/graphic4.svg" className="card-img-top" alt="..." />
-                        <p>Don't have an account? <Link to="/login">Register here</Link></p>
+                        <p>Don't have an account? <Link to="/signup">Register here</Link></p>
                     </div>
                 </div>
             </section>
+
+            
 
         </>
     );

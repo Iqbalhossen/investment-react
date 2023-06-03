@@ -4,6 +4,8 @@ import { AuthContext } from '../../../Contexts/AuthContext/AuthProvider';
 import SingleItem from './SingleItem';
 import './UsdGenerate.css'
 import Skeleton from 'react-loading-skeleton';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const UsdGenerate = () => {
     const [action, setAction] = useState('overview');
@@ -11,19 +13,20 @@ const UsdGenerate = () => {
         if ('overview' === data) {
             setAction('overview');
         }
+        else if ('buyPackage' === data) {
+            setAction('buyPackage');
+        }
         else if ('history' === data) {
             setAction('history');
+            console.log(data)
         }
-        else if ('claim' === data) {
-            setAction('claim');
-        }
-    
+
     }
 
 
 
 
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const { LoginWithEmail,  authUser } = useContext(AuthContext);
 
     const [message, setMessage] = useState({});
 
@@ -42,120 +45,148 @@ const UsdGenerate = () => {
 
     const [selectAmont, setselectAmont] = useState(0)
 
-
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/package/view`)
-            .then(res => res.json())
-            .then(data => {
-                setUsdGeneratePackage(data.data);
-                // console.log(data)
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/usd/generate/package/view`,
+           {
+                method: 'GET',
+                headers: {
+                    'authorization': 'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            }
+            )
+                .then(res => res.json())
+                .then(data => {
+                    setUsdGeneratePackage(data.data);
+                    // console.log(data)
+                });
+        }
 
     }, [])
 
-
-    useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/accept/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotal(data.data);
-            });
-
-    }, [])
 
 
     const [showUsdGenerate, setUsdGenerate] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setUsdGenerate(data);
-                // console.log(data)
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/usd/generate/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setUsdGenerate(data);
+                    // console.log(data)
+                });
+        }
 
     }, [])
 
 
-    let AmountSum = 0
-    for (let i = 0; i <= total.length; i++) {
-        if (total[i]) {
-            AmountSum += parseFloat(total[i].amount);
-        }
 
-    }
 
-    let UsdGenSum = 0
-    for (let i = 0; i <= showUsdGenerate.length; i++) {
-        if (showUsdGenerate[i]) {
-            UsdGenSum += parseFloat(showUsdGenerate[i].package_amount);
-        }
-
-    }
 
     // console.log(showUsdGenerate)
-
+    const [usdBtnDisable, setUsdBtnDisable] = useState(false)
+    const [usdSelectPackage, setusdSelectPackage] = useState('')
+    
     const handleForm = event => {
         event.preventDefault();
-        // console.log(deposit);
-        fetch('https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/store', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(deposit)
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                if (data.success === false) {
-                    setMessage(data.data);
-                    // console.log(data)
-
-                } else {
-                    setMessage(data);
-                    navigate(userFrom, { replace: true });
-
-
-                    // setLoading(false);
-
-                }
-
-
+        if (deposit.package_amount !== undefined) {
+            setUsdBtnDisable(true);
+            fetch('http://localhost:5000/api/user/usd/generate/store', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+                body: JSON.stringify(deposit)
             })
-            .catch(error => <></>);
-        event.target.reset();
+                .then(res => res.json())
+                .then(data => {
+                    // console.log(data);
+                    if (data.success === false) {
+                        setMessage(data.data);
+                        // console.log(data)
+                        setUsdBtnDisable(false);
+                        toast('package buy unsuccessfull!', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+
+                    } else {
+                        // setMessage(data);
+                        navigate(userFrom, { replace: true });
+                        toast('package buy successfull!', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+
+                        // setLoading(false);
+
+                    }
+
+
+                })
+                .catch(error => <></>);
+            event.target.reset();
+        } else {
+            setusdSelectPackage("please select your package")
+        }
+
     }
 
     const handleInputBlur = event => {
-        let setTime = new Date();
+        setusdSelectPackage('')
         const value = event.target.value;
         const field = event.target.name;
-        const newUser = { ...deposit, user_name: authUser.userName };
+        const newUser = { ...deposit, user_name: authUser?.userName };
         newUser[field] = value;
         setDeposit(newUser);
     }
 
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/package/view/${deposit.package_amount}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.data) {
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/usd/generate/package/view/${deposit.package_amount}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data) {
 
-                }
-                if (data.data[0]) {
-                    setUsdGeneratePackageByAmount(data.data[0]);
-                    setselectAmont(data.data[0].usd_generate_package_amount)
+                    }
+                    if (data.data[0]) {
+                        setUsdGeneratePackageByAmount(data.data[0]);
+                        setselectAmont(data.data[0].usd_generate_package_amount)
 
-                }
+                    }
 
-            });
+                });
+        }
 
     }, [deposit])
-    // console.log(deposit.package_amount)
-
-    // console.log(UsdGeneratePackageByAmount?.usd_generate_package_name)
 
 
 
@@ -167,12 +198,20 @@ const UsdGenerate = () => {
     const [TotalMining, setTotalMining] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/total/earning/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotalMining(data.data);
-                // console.log(data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/usd/generate/total/earning/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalMining(data.data);
+                    // console.log(data.data);
+                });
+        }
 
     }, [])
 
@@ -186,17 +225,24 @@ const UsdGenerate = () => {
 
     }
 
-    // console.log(userTotalMining)
 
     const [Totaldirect, setTotaldirect] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/direct/sells/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotaldirect(data.data.data);
-                // console.log(data.data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/direct/sells/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotaldirect(data.data.data);
+                    // console.log(data.data.data);
+                });
+        }
 
     }, [])
 
@@ -211,20 +257,24 @@ const UsdGenerate = () => {
         }
 
     }
-    // console.log(userTotaldirect)
-
-    // console.log(userTotaldirect)
-
 
     const [Totalroi, setTotalroi] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/roi/mint/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotalroi(data.data.data);
-                // console.log(data.data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/roi/mint/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalroi(data.data.data);
+                    // console.log(data.data.data);
+                });
+        }
 
     }, [])
 
@@ -241,13 +291,21 @@ const UsdGenerate = () => {
     const [Totalteam, setTotalteam] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/team/sells/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotalteam(data.data.data);
-                // console.log(data.data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/team/sells/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalteam(data.data.data);
+                    // console.log(data.data.data);
+                });
 
+        }
     }, [])
 
     let userTotalteam = 0
@@ -261,12 +319,20 @@ const UsdGenerate = () => {
     const [Totalgeneration, setTotaltgeneration] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/generation/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotaltgeneration(data.data.data);
-                // console.log(data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/generation/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotaltgeneration(data.data.data);
+                    // console.log(data.data);
+                });
+        }
 
     }, [])
 
@@ -281,12 +347,20 @@ const UsdGenerate = () => {
     const [bonusAmount, setbonusAmount] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/balance/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setbonusAmount(data.data.data);
-                // console.log(data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/balance/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setbonusAmount(data.data.data);
+                    // console.log(data.data);
+                });
+        }
 
     }, [])
 
@@ -297,76 +371,61 @@ const UsdGenerate = () => {
         }
 
     }
-    // console.log(userTotalbonusAbount);
-
-    const handleTransfer = () => {
-        const bounsBalance = (userTotalroi + userTotalMining + userTotalteam + userTotaldirect + userTotalgeneration);
-        const TotalbounsBalance = { amount: bounsBalance, TotalbonusAbount: userTotalbonusAbount };
-        // console.log(bounsBalance)
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/balance/store/${authUser.userName}`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(TotalbounsBalance)
-        })
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                if (data.success === false) {
-                    setMessage(data);
-                    console.log(data)
-
-                } else {
-                    setMessage(data);
-                    navigate(userFrom, { replace: true });
-
-
-                    // setLoading(false);
-
-                }
-
-
-            })
-            .catch(error => <></>);
-    }
 
 
 
-    const [withdrawAmount, setwithdrawAmount] = useState([])
+
+    
+    const [totalBalance, setTotalBalance] = useState(0);
+
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/withdraw/accept/view/${authUser.userName}/${authUser._id}`)
-            .then(res => res.json())
-            .then(data => {
-                setwithdrawAmount(data.data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/personal/balance/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalBalance(data.data);
+                });
+        }
 
     }, [])
 
-    let withdrawAmountSum = 0
-    for (let i = 0; i <= withdrawAmount?.length; i++) {
-        if (withdrawAmount[i]) {
-            withdrawAmountSum += parseFloat(withdrawAmount[i]?.amountWithVat);
-        }
 
-    }
-
-
+    // console.log(totalBalance)
 
     return (
         <>
 
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className='services-menu container mt-5 d-flex justify-content-between'>
                 {/* <Link ><h6 className=''>Overview</h6></Link> */}
-                <button onClick={() => handleServices('overview')} class="btn btn-info me-5">Overview</button>
+                <button onClick={() => handleServices('overview')} class="btn btn-light btn-color fw-bolder">Overview</button>
 
-                <button onClick={() => handleServices('history')} class="btn btn-primary"> Buy Package</button>
+                <button onClick={() => handleServices('buyPackage')} class="btn btn-light btn-color  fw-bolder"> Buy Package</button>
+                <button onClick={() => handleServices('history')} class="btn btn-light btn-color  fw-bolder">History</button>
 
             </div>
 
             <section className='container mt-3'>
 
-                <div className={`${action === 'overview' ? 'shadow-lg p-3 mb-5 bg-body rounded d-none ' : 'shadow-lg p-3 mb-5 bg-body rounded d-block'}`}>
+                <div className={`${action === 'buyPackage' ? 'shadow-lg p-3 mb-5 bg-body rounded d-block ' : 'shadow-lg p-3 mb-5 bg-body rounded d-none'}`}>
 
                     <div className='deposit-title text-center'>
                         {/* <i className="fa-solid fa-arrow-left"></i> */}
@@ -374,7 +433,7 @@ const UsdGenerate = () => {
 
                     </div>
 
-                    <Form onSubmit={handleForm}>
+                    <form onSubmit={handleForm}>
 
                         <div className="row g-4">
 
@@ -394,25 +453,25 @@ const UsdGenerate = () => {
                                             }
                                         </select>
                                     </div>
-
+                                    <p className='text-danger'>{usdSelectPackage}</p>
                                     <div className='total-calculate'>
 
 
                                         <small>Available Balance</small>
-                                        <h4>${AmountSum - UsdGenSum + userTotalbonusAbount - withdrawAmountSum} USD</h4>
+                                        <h4>$ {totalBalance} USD</h4>
                                         <small>Package Name </small>
-                                        <h4>{UsdGeneratePackageByAmount ? UsdGeneratePackageByAmount[0]?.usd_generate_package_name : 0}</h4>
+                                        <h4>{UsdGeneratePackageByAmount?.usd_generate_package_name ? UsdGeneratePackageByAmount?.usd_generate_package_name : 'please select'}</h4>
                                         <small>Package Amount </small>
-                                        <h4>${deposit.package_amount ? deposit.package_amount : 0} USD</h4>
+                                        <h4>$ {deposit.package_amount ? deposit.package_amount : 0} USD</h4>
 
                                         <small>Frozen Balance</small>
-                                        <h4>${AmountSum - deposit.package_amount - UsdGenSum ? AmountSum - deposit?.package_amount - UsdGenSum + userTotalbonusAbount - withdrawAmountSum : 0} USD</h4>
+                                        <h4>$ {totalBalance - deposit.package_amount ? totalBalance - deposit?.package_amount : totalBalance} USD</h4>
                                         <small>Commission</small>
                                         <h4>0.5%</h4>
                                         <small>Per Day Profit</small>
-                                        <h4>${deposit.package_amount ? `${(deposit.package_amount * 0.5) / 100} USD` : 0}</h4>
+                                        <h4>$ {deposit.package_amount ? `${(deposit.package_amount * 0.5) / 100} USD` : 0}</h4>
                                         <small>Total Profit: </small>
-                                        <h4>${UsdGeneratePackageByAmount?.total_profit ? UsdGeneratePackageByAmount?.total_profit : 0} USD</h4>
+                                        <h4>$ {UsdGeneratePackageByAmount?.total_profit ? UsdGeneratePackageByAmount?.total_profit : 0} USD</h4>
                                     </div>
                                 </div>
 
@@ -430,7 +489,7 @@ const UsdGenerate = () => {
 
                                         <div className='mobile-balance-show mb-2'>
                                             <div className='d-flex justify-content-between m-0 align-items-center'>
-                                                <small>Available Balance : <strong>{AmountSum - UsdGenSum - withdrawAmountSum} USD</strong></small>
+                                                <small>Available Balance : <strong>{totalBalance} USD</strong></small>
                                                 <small>Package Amount : <strong>{deposit.package_amount ? deposit.package_amount : 0} USD</strong></small>
                                             </div>
                                             <hr />
@@ -456,7 +515,24 @@ const UsdGenerate = () => {
                                         </div>
                                         <div class="d-grid gap-2">
 
-                                            {AmountSum - selectAmont - UsdGenSum + userTotalbonusAbount - withdrawAmountSum >= 0 ? <button class="btn btn-primary deposit-btn-submit" type="submit" >Confirm</button> : <button class="btn btn-primary deposit-btn-submit" type="submit" disabled>Confirm</button>}
+                                            {(() => {
+                                                if (usdBtnDisable === true) {
+                                                    return (
+                                                        <>
+                                                            <button class="btn btn-primary deposit-btn-submit" type="submit" disabled>Confirm</button>
+                                                        </>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <>
+                                                            {totalBalance - selectAmont >= 0 ? <button class="btn btn-primary deposit-btn-submit" type="submit" >Confirm</button> : <button class="btn btn-primary deposit-btn-submit" type="submit" disabled>Confirm</button>}
+                                                        </>
+                                                    )
+                                                }
+                                            })()}
+
+
+
 
                                         </div>
 
@@ -466,48 +542,34 @@ const UsdGenerate = () => {
                         </div>
 
 
-                    </Form>
+                    </form>
                 </div>
 
-
-
-
-
-
-                {/* Overview history start  */}
-                <div className={`${action === 'history' ? 'shadow-lg p-3 mb-5 bg-body rounded d-none ' : 'shadow-lg p-3 mb-5 bg-body rounded  d-block'}`}>
+                {/* Overview buyPackage start  */}
+                <div className={`${action === 'overview' ? 'shadow-lg p-3 mb-5 bg-body rounded d-block ' : 'shadow-lg p-3 mb-5 bg-body rounded  d-none'}`}>
 
                     {message.message}
-
-                    {/* <div className='deposit-form-area pb-4 pt-4 d-flex justify-content-between'>
-                        <small>Yow can't transfer dollers to your main balance from here until your earn $10...</small>
-                        <Link>
-                            <span onClick={handleTransfer}>Transfer Now Main Balance</span>
-
-                        </Link>
-                    </div> */}
-
-                    <div className="row row-cols-1 row-cols-md-6  row-cols-lg-6 g-4">
+                    <div className="row row-cols-1 row-cols-md-2 usd-generate-area  row-cols-lg-2 g-4">
                         <div className="col ">
-                            <div className="card total shadow-lg p-1  bg-body rounded border-0">
+                            <div className="card total shadow-lg usd-gen-mining-color1 p-1  bg-body rounded border-0">
                                 <div className="card-body card-image">
-                                    <h3><i class="fa-solid fa-bitcoin-sign"></i>Total Roi</h3>
+                                    <h3><i class="fa-solid fa-sack-dollar"></i>Total Roi</h3>
                                     <div className='price d-flex text-center'>
                                         <i class="fa-solid fa-comments-dollar"></i>
-                                        <p>$ {userTotalMining.toFixed(2)}</p>
+                                        <p>$ {userTotalMining.toFixed(8)}</p>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <div className="col">
-                            <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                <Link to={`/usd/generate/direct/sells/bonus/${authUser.userName}/${authUser._id}`}>
+                        <div className="col ">
+                            <div className="card Withdrawal usd-gen-mining-color1  shadow-lg p-1  bg-body rounded border-0">
+                                <Link to={`/usd/generate/direct/sells/bonus/${authUser?.userName}/${authUser._id}`}>
                                     <div className="card-body card-image">
-                                        <h3><i class="fa-solid fa-money-bill-transfer"></i>Direct Sells Bonus</h3>
+                                        <h3><i class="fa-solid fa-circle-dollar-to-slot"></i>Direct Sells Bonus</h3>
                                         <div className='price d-flex text-center'>
                                             <i class="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {userTotaldirect}</p>
+                                            <p>$ {userTotaldirect.toFixed(8)}</p>
                                         </div>
                                     </div>
                                 </Link>
@@ -516,56 +578,57 @@ const UsdGenerate = () => {
                         </div>
 
                         <div className="col">
-                            <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                <Link to={`/usd/generate/roi/mint/bonus/${authUser.userName}/${authUser._id}`}>
+                            <div className="card Withdrawal usd-gen-mining-color1 shadow-lg p-1  bg-body rounded border-0">
+                                <Link to={`/usd/generate/roi/mint/bonus/${authUser?.userName}/${authUser._id}`}>
                                     <div className="card-body card-image">
-                                        <h3><i class="fa-solid fa-money-bill-transfer"></i>Roi Mint Bonus</h3>
+                                        <h3><i class="fa-solid fa-money-check-dollar"></i>Roi Mint Bonus</h3>
                                         <div className='price d-flex text-center'>
                                             <i class="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {userTotalroi.toFixed(2)}</p>
+                                            <p>$ {userTotalroi.toFixed(8)}</p>
                                         </div>
                                     </div>
                                 </Link>
                             </div>
                         </div>
                         <div className="col">
-                            <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                <Link to={`/usd/generate/team/sells/bonus/${authUser.userName}/${authUser._id}`}>
+                            <div className="card Withdrawal  usd-gen-mining-color1 shadow-lg p-1  bg-body rounded border-0">
+                                <Link to={`/usd/generate/generation/bonus/${authUser?.userName}/${authUser._id}`}>
 
                                     <div className="card-body card-image">
-                                        <h3><i class="fa-solid fa-money-bill-transfer"></i>Team Sells Bonus</h3>
+                                        <h3><i class="fa-solid fa-file-invoice-dollar"></i>Generation Bonus</h3>
                                         <div className='price d-flex text-center'>
                                             <i class="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {userTotalteam.toFixed(2)}</p>
-                                        </div>
-                                    </div>
-                                </Link>
-
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                <Link to={`/usd/generate/generation/bonus/${authUser.userName}/${authUser._id}`}>
-
-                                    <div className="card-body card-image">
-                                        <h3><i class="fa-solid fa-money-bill-transfer"></i>Generation Bonus</h3>
-                                        <div className='price d-flex text-center'>
-                                            <i class="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {userTotalgeneration.toFixed(2)}</p>
+                                            <p>$ {userTotalgeneration.toFixed(8)}</p>
                                         </div>
                                     </div>
                                 </Link>
                             </div>
                         </div>
                         <div className="col">
-                            <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
+                            <div className="card Withdrawal usd-gen-mining-color1 shadow-lg p-1  bg-body rounded border-0">
+                                <Link to={`/usd/generate/team/sells/bonus/${authUser?.userName}/${authUser._id}`}>
+
+                                    <div className="card-body card-image">
+                                        <h3><i class="fa-solid fa-hand-holding-dollar"></i>Team Sells Bonus</h3>
+                                        <div className='price d-flex text-center'>
+                                            <i class="fa-solid fa-comments-dollar"></i>
+                                            <p>$ {userTotalteam.toFixed(8)}</p>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                            </div>
+                        </div>
+
+                        <div className="col">
+                            <div className="card Withdrawal usd-gen-mining-color1 shadow-lg p-1  bg-body rounded border-0">
                                 <Link to="/usd/generate/transfer/balance">
 
                                     <div className="card-body card-image">
-                                        <h3><i class="fa-solid fa-money-bill-transfer"></i>Total Bonus</h3>
+                                        <h3><i class="fa-solid fa-filter-circle-dollar"></i>Total Bonus</h3>
                                         <div className='price d-flex text-center'>
                                             <i class="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {(userTotalroi + userTotalMining + userTotalteam + userTotaldirect + userTotalgeneration - userTotalbonusAbount).toFixed(2)}</p>
+                                            <p>$ {(userTotalroi + userTotalMining + userTotalteam + userTotaldirect + userTotalgeneration - userTotalbonusAbount).toFixed(8)}</p>
                                         </div>
                                         {/* <span>transfer</span> */}
                                     </div>
@@ -577,6 +640,30 @@ const UsdGenerate = () => {
                         </div>
 
                     </div>
+
+
+
+
+                    <div className='container mt-2 profile-hide '>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                {/* Overview buyPackage end  */}
+
+                <div className={`${action === 'history' ? 'shadow-lg p-3 mb-5 bg-body rounded d-block ' : 'shadow-lg p-3 mb-5 bg-body rounded d-none'}`}>
 
                     <div className='deposit-title align-items-center mt-3  d-flex'>
                         <i className="fa-solid fa-arrow-left"></i>
@@ -611,25 +698,8 @@ const UsdGenerate = () => {
 
                     </div>
 
-
-                    <div className='container mt-2 profile-hide '>
-
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
-                {/* Overview history end  */}
+
 
             </section>
         </>

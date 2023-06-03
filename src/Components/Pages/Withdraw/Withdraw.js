@@ -1,153 +1,159 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Form, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthContext/AuthProvider';
-import './withdraw.css'
+import './withdraw.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 const Withdraw = () => {
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
     const [message, setMessage] = useState({});
 
     const navigate = useNavigate();
     const location = useLocation();
-    const userFrom = location.state?.from?.pathname || "/usd/generate";
+    const userFrom = location.state?.from?.pathname || "/account";
 
 
-    const [total, setTotal] = useState([]);
 
-
-    const [showUsdGenerate, setUsdGenerate] = useState([]);
-
-    const [bonusAmount, setbonusAmount] = useState([]);
+    const [totalBalance, setTotalBalance] = useState(0);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/balance/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setbonusAmount(data.data.data);
-                // console.log(data.data.data);
-            });
-
-    }, [])
-
-    let userTotalbonusAbount = 0
-    for (let i = 0; i <= bonusAmount?.length; i++) {
-        if (bonusAmount[i]) {
-            userTotalbonusAbount += parseFloat(bonusAmount[i]?.amount);
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/personal/balance/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalBalance(data.data);
+                });
         }
-
-    }
-
-    // console.log(userTotalbonusAbount)
-
-    useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setUsdGenerate(data);
-                // console.log(data)
-            });
-
+  
     }, [])
 
 
-    let usergenerateSum = 0
-    for (let i = 0; i <= showUsdGenerate?.length; i++) {
-        if (showUsdGenerate[i]) {
-            usergenerateSum += parseFloat(showUsdGenerate[i]?.package_amount);
-        }
 
-    }
-    // console.log(usergenerateSum);
-    useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/accept/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotal(data.data);
-            });
+    // console.log(withdrawAmounttPenddingSum);
 
-    }, [])
-
-    let userdepositSum = 0
-    for (let i = 0; i <= total?.length; i++) {
-        if (total[i]) {
-            userdepositSum += parseFloat(total[i]?.amount);
-        }
-
-    }
-
-    const [withdrawAmount, setwithdrawAmount] = useState([])
-    // console.log(usergenerateSum);
-    useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/withdraw/accept/view/${authUser.userName}/${authUser._id}`)
-            .then(res => res.json())
-            .then(data => {
-                setwithdrawAmount(data.data.data);
-            });
-
-    }, [])
-
-    let withdrawAmountSum = 0
-    for (let i = 0; i <= withdrawAmount?.length; i++) {
-        if (withdrawAmount[i]) {
-            withdrawAmountSum += parseFloat(withdrawAmount[i]?.amountWithVat);
-        }
-
-    }
-
-
-    // console.log(withdrawAmountSum)
-
+    const [usdBtnDisable, setUsdBtnDisable] = useState(false)
+    const [notANumber, setNotANumber] = useState('');
+    const [netMessage, setNetMessage] = useState('')
     const [withdraw, setWithdraw] = useState({});
-    const [UserData, setUserData] = useState({});
 
     const handleInputBlur = event => {
-        setMessage('')
+        setMessage('');
+        if (event.target.name === "withdraw_balance") {
+            const checkNumber = /^[0-9\b]+$/;
+
+            if (event.target.value === '' || checkNumber.test(event.target.value)) {
+                setUsdBtnDisable(false)
+                setNotANumber('');
+
+            } else {
+                setNotANumber('Invalid Number!')
+                setUsdBtnDisable(true)
+            }
+
+        }
+
+        if (event.target.name === "networks") {
+            setUsdBtnDisable(false)
+        }
+
         let setTime = new Date();
         const value = event.target.value;
         const field = event.target.name;
-        const newUser = { ...withdraw, user_name: authUser.userName, available: userdepositSum + userTotalbonusAbount - usergenerateSum, status: 0, created_at: setTime };
+        const newUser = { ...withdraw, totalBalance, status: 0, created_at: setTime };
         newUser[field] = value;
         setWithdraw(newUser);
         // console.log(value)
     }
-    // console.log(withdraw)
+
+    
 
     const handleForm = event => {
+        setUsdBtnDisable(true);
         event.preventDefault();
+        if (withdraw.networks) {
 
-        // console.log({ ...withdraw })
+            if ((totalBalance - withdraw.withdraw_balance) >= 0) {
 
-        if ((userdepositSum + userTotalbonusAbount - usergenerateSum) >= withdraw.withdraw_balance) {
-
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/withdraw/store/${authUser.userName}/${authUser._id}`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(withdraw)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.success === false) {
-                        setMessage(data);
-                        console.log(data)
-                    } else {
-
-                        setMessage(data.message);
-                        navigate(userFrom, { replace: true });
-                        // setLoading(false);
-
-                    }
-
-
+              if(withdraw.withdraw_balance > 9){
+                fetch(`http://localhost:5000/api/user/withdraw/store/${authUser?.userName}/${authUser._id}`, {
+                    method: 'POST',
+                    headers: {
+                        "content-type": "application/json",
+                        'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                    },
+                    body: JSON.stringify(withdraw)
                 })
-                .catch(error => <></>);
-            event.target.reset();
-        } else {
-            console.log("amount low");
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success === false) {
+                            setMessage(data);
+                            console.log(data)
+                            setUsdBtnDisable(false);
+                        } else {
+                            console.log(data)
+    
+                            // setMessage(data.message);
+                            navigate(userFrom, { replace: true });
+                            toast('Your withdraw is pending!', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            });
+                            // setLoading(false);
+    
+                        }
+    
+    
+                    })
+                    .catch(error => <></>);
+                event.target.reset();
+
+              }else{
+                toast('Minimum Amount $10', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+              }
+
+            } else {
+                toast('Your amount is low!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setUsdBtnDisable(true);
+            }
+    
+        }else{
+            setNetMessage("please select your network");
+
         }
 
+  
 
     }
 
@@ -155,8 +161,26 @@ const Withdraw = () => {
 
 
 
+
+
+
+    
+
     return (
         <>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <section className='container mt-3'>
 
                 <div className='shadow-lg p-3 mb-5 bg-body rounded'>
@@ -169,7 +193,7 @@ const Withdraw = () => {
                     </div>
 
 
-                    <Form onSubmit={handleForm}>
+                    <form onSubmit={handleForm}>
                         <div className="row g-4">
 
                             <div className="col-12 col-md-4 col-lg-4 py-lg-3 py-md-3">
@@ -177,12 +201,14 @@ const Withdraw = () => {
                                 <div className='deposit-form-area px-md-3 px-lg-3'>
                                     <div className="my-3 deposit-input d-block">
                                         <label className="form-label">Withdraw Balance</label>
-                                        <input type="text" name="withdraw_balance" onChange={handleInputBlur} className="form-control deposit-input" id="exampleFormControlInput1" placeholder="Enter your Withdraw Balance" />
+                                        <input type="text" name="withdraw_balance" onChange={handleInputBlur} className="form-control deposit-input" id="exampleFormControlInput1" placeholder="Enter your Withdraw Balance" required/>
+
+                                        <p className='text-danger'>{notANumber}</p>
                                     </div>
 
                                     <div className='total-calculate'>
                                         <small>Available Balance</small>
-                                        <h4>{(userdepositSum + userTotalbonusAbount - usergenerateSum - withdrawAmountSum).toFixed(2)} USDT</h4>
+                                        <h4>$ {withdraw?.withdraw_balance ? (totalBalance - withdraw?.withdraw_balance).toFixed(8) : (totalBalance).toFixed(8)} USDT</h4>
                                         <small>Withdraw Fee</small>
                                         <h4>5%</h4>
                                         <small>Total Fee</small>
@@ -198,21 +224,37 @@ const Withdraw = () => {
                             <div className="col-12 col-md-8 col-lg-8 py-0 withdraw-input-section py-lg-3 py-md-3">
                                 <div className='col-12 col-md-12 col-lg-8'>
                                     <div>
-                                        <div className='withdraw-img'>
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbXv8bN5un2I_nZEDZgpEpFnRJohSiel_NQ&usqp=CAU" alt="" />
+                                           <div className='usd-networks '>
+                                            <h3>USDT  Available Networks</h3>
 
+                                            <div className="network-btn-group  align-items-center justify-content-center  d-flex me-2"  >
+                                                <input type="radio" onChange={handleInputBlur} value='Yone / polygon' className="btn-check " name="networks" id="danger-outlined" />
+                                                <label className="btn btn-outline-secondary network-btn" htmlFor="danger-outlined">Yone <br /> polygon</label>
+
+                                                <input type="radio" onChange={handleInputBlur} value='Usdt / trc20' className="btn-check" name="networks" id="danger-outlined2" />
+                                                <label className="btn btn-outline-secondary network-btn" htmlFor="danger-outlined2">Usdt <br /> trc20</label>
+
+                                                <input type="radio" onChange={handleInputBlur} value='Busd / bep20' className="btn-check" name="networks" id="danger-outlined3" />
+                                                <label className="btn btn-outline-secondary network-btn" htmlFor="danger-outlined3">Busd <br /> bep20</label>
+                                           
+                                            </div>
 
 
                                         </div>
+                                        <p className='text-danger'>{netMessage}</p>
                                         <div className="my-3 deposit-input d-block">
                                             <label className="form-label">Wallet Address</label>
-                                            <input type="text" onChange={handleInputBlur} name="withdraw_wallet" className="form-control deposit-input" id="exampleFormControlInput1" placeholder="Enter your Wallet Address" />
+                                            <input type="text" onChange={handleInputBlur} name="withdraw_wallet" className="form-control deposit-input" id="exampleFormControlInput1" placeholder="Enter your Wallet Address"required />
                                         </div>
 
                                         <div className='mobile-balance-show mb-2'>
                                             <div className='d-flex justify-content-between m-0 align-items-center'>
-                                                <small>Withdraw Balance : <strong>0 USD</strong></small>
-                                                <small>Available Balance : <strong>{(userdepositSum + userTotalbonusAbount - usergenerateSum).toFixed(2)} USD</strong></small>
+                                                <small>Withdraw Balance : <strong>$ {withdraw?.withdraw_balance ? (withdraw.withdraw_balance - (withdraw.withdraw_balance * 5) / 100) : 0} USDT</strong></small>
+                                                <small>Available Balance : <strong>{withdraw?.withdraw_balance ? (totalBalance - withdraw?.withdraw_balance).toFixed(8) : (totalBalance).toFixed(8)} USDT</strong></small>
+                                            </div>
+                                            <div className='d-flex justify-content-between m-0 align-items-center'>
+                                                <small>Withdraw Fee : <strong>5%</strong></small>
+                                                <small>Total Fee : <strong>$ {withdraw?.withdraw_balance ? ((withdraw.withdraw_balance * 5) / 100) : 0} USDT</strong></small>
                                             </div>
                                             <hr />
 
@@ -223,7 +265,23 @@ const Withdraw = () => {
 
 
                                         <div class="d-grid gap-2 my-3">
-                                            <button class="btn btn-primary deposit-btn-submit" type="submit">Confirm</button>
+
+                                            {(() => {
+                                                if (usdBtnDisable === true) {
+                                                    return (
+                                                        <>
+                                                            <button class="btn btn-primary deposit-btn-submit" type="submit" disabled>Confirm</button>
+                                                        </>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <>
+                                                            {totalBalance - withdraw?.withdraw_balance >= 0 ? <button class="btn btn-primary deposit-btn-submit" type="submit" >Confirm</button> : <button class="btn btn-primary deposit-btn-submit" type="submit" disabled>Confirm</button>}
+                                                        </>
+                                                    )
+                                                }
+                                            })()}
+
                                         </div>
 
                                     </div>
@@ -231,7 +289,7 @@ const Withdraw = () => {
                             </div>
                         </div>
 
-                    </Form>
+                    </form>
 
 
 

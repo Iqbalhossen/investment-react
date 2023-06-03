@@ -7,6 +7,10 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { Autoplay, Navigation } from "swiper";
 import { Pagination } from "swiper";
+import Picture2 from './Picture2.png'
+import Picture3 from './Picture3.png'
+import Picture4 from './product.png'
+import Slider from 'react-slick';
 
 const WorkSection = () => {
 
@@ -16,6 +20,45 @@ const WorkSection = () => {
 
         }
     }
+
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        autoplaySpeed: 3000,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        cssEase: "linear",
+        autoplay: true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+
 
     return (
         <>
@@ -29,41 +72,8 @@ const WorkSection = () => {
                         <div className='text-center title'>
                             <p>HOW IT WORKS</p>
                             <div className="diamond-line-centered-theme-colored work-diamond"></div>
-                            <h3>Get started in 3 simple steps</h3>
+                            <h3>Get Started in 3 Easy Steps</h3>
                         </div>
-
-                        {/* <div className="row row-cols-1 row-cols-md-3 g-4">
-                            <div className="col">
-                                <div className="card work-item h-100 shadow-lg p-3 mb-5 bg-body rounded">
-                                    <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/phone.png" className="card-img-top" alt="..." />
-                                    <div className="card-body">
-                                        <h5 className="card-title">Explore great products</h5>
-                                        <p className="card-text">Browse the C-Store and explore all of our great products.</p>
-    
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="card work-item h-100 shadow-lg p-3 mb-5 bg-body rounded">
-                                    <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/megaphone.png" className="card-img-top" alt="..." />
-                                    <div className="card-body">
-                                        <h5 className="card-title">Share products</h5>
-                                        <p className="card-text">Get more involved and recommend the products to others as an Affiliate. Grow your own network as an entrepreneur.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="card work-item h-100 shadow-lg p-3 mb-5 bg-body rounded">
-                                    <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/bag.png" className="card-img-top" alt="..." />
-                                    <div className="card-body">
-                                        <h5 className="card-title">Get rewarded!</h5>
-                                        <p className="card-text">Entrepreneur status entitles an Affiliate to take full advantage of the benefits on offer from Yumeone.</p>
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </div>
-     */}
 
                     </div>
 
@@ -76,95 +86,44 @@ const WorkSection = () => {
             </section>
 
             <section className='container'>
-                <Swiper
-                    spaceBetween={30}
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                    }}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    navigation={true}
-                    modules={[Autoplay, Pagination, Navigation]}
-                    className="mySwiper"
-                    breakpoints={{
-                        // when window width is >= 640px
-                        640: {
-                            width: 640,
-                            slidesPerView: 1,
-                        },
-                        // when window width is >= 768px
-                        1200: {
-                            width: 1200,
-                            slidesPerView: 3,
-                        },
-                    }}
-                >
-                    <div className='p-5'>
-                        <SwiperSlide>
-                            <div className='work-slider-section shadow-lg p-3 mb-5 bg-body roundedm'>
-                                <div className='slide-img'>
-                                    <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/bag.png" className="card-img-top" alt="..." />
-                                    <h5 className="card-title">Explore great products</h5>
-                                    <p className="card-text">Entrepreneur status entitles an Affiliate to take full advantage of the benefits on offer from Yumeone.</p>
-                                </div>
+
+                <Slider {...settings}>
+                    <div className='p-3 text-center'>
+                        <div className='work-slider-section shadow-lg p-3 mb-5 bg-body rounded'>
+                            <div className='slide-img'>
+                                {/* <img src={Picture2} className="card-img-top" alt="..." /> */}
+                                <i class="fa-solid fa-user-plus"></i>
+                                <h5 className="card-title">Step One!</h5>
+                                <p className="card-text">Sign up and login
+                                    Enter the universe of fulfilling Yome One's dream.</p>
                             </div>
-                        </SwiperSlide>
-
-
+                        </div>
                     </div>
-
-
-
-                    <SwiperSlide>
+                    <div className='p-3 text-center'>
                         <div className='work-slider-section shadow-lg p-3 mb-5 bg-body rounded'>
-                            <div className='slide-img'>
-                                <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/bag.png" className="card-img-top" alt="..." />
+                            <div className='slide-img '>
+                                <img src={Picture4} className="card-img-top d-inline" alt="..." />
+                                {/* <i class="fa-solid fa-magnifying-glass-dollar"></i> */}
 
-                                <h5 className="card-title">Get rewarded!</h5>
-                                <p className="card-text">Entrepreneur status entitles an Affiliate to take full advantage of the benefits on offer from Yumeone.</p>
+                                <h5 className="card-title">Step Two!</h5>
+                                <p className="card-text">Touch the product option-
+                                    Choose a product and buy any choosble product.
+                                </p>
                             </div>
                         </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
+                    </div>
+                    <div className='p-3 text-center'>
                         <div className='work-slider-section shadow-lg p-3 mb-5 bg-body rounded'>
                             <div className='slide-img'>
-                                <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/bag.png" className="card-img-top" alt="..." />
-                                <h5 className="card-title">Get rewarded!</h5>
-                                <p className="card-text">Entrepreneur status entitles an Affiliate to take full advantage of the benefits on offer from Yumeone.</p>
+                                {/* <img src={Picture4} className="card-img-top" alt="..." /> */}
+                                <i class="fa-solid fa-people-roof"></i>
+                                <h5 className="card-title">Step Three!</h5>
+                                <p className="card-text">Make unlimited income by creating a well-formed affiliate from your familiar palace.
+                                </p>
                             </div>
                         </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='work-slider-section shadow-lg p-3 mb-5 bg-body rounded'>
-                            <div className='slide-img'>
-                                <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/bag.png" className="card-img-top" alt="..." />
-                                <h5 className="card-title">Get rewarded!</h5>
-                                <p className="card-text">Entrepreneur status entitles an Affiliate to take full advantage of the benefits on offer from Yumeone.</p>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='work-slider-section shadow-lg p-3 mb-5 bg-body rounded'>
-                            <div className='slide-img'>
-                                <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/bag.png" className="card-img-top" alt="..." />
-                                <h5 className="card-title">Get rewarded!</h5>
-                                <p className="card-text">Entrepreneur status entitles an Affiliate to take full advantage of the benefits on offer from Yumeone.</p>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='work-slider-section shadow-lg p-3 mb-5 bg-body rounded'>
-                            <div className='slide-img'>
-                                <img src="https://static.crowd1.com/cdn-cgi/image/width=220,format=auto,quality=100/static/assets/images/crowd-public/home/bag.png" className="card-img-top" alt="..." />
-                                <h5 className="card-title">Get rewarded!</h5>
-                                <p className="card-text">Entrepreneur status entitles an Affiliate to take full advantage of the benefits on offer from Yumeone.</p>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-
-                </Swiper>
+                    </div>
+                </Slider>
             </section>
         </>
     );

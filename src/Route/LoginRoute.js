@@ -1,17 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../Contexts/AuthContext/AuthProvider';
 
 const LoginRoute = ({children}) => {
-    const {  authUser, loading} = useContext(AuthContext);
 
+    function getCookie(name) {
+        const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
+        return cookieValue ? cookieValue.pop() : '';
+      }
+
+      
     const location = useLocation();
+    let token = getCookie('token');
 
-    if(authUser === null){
+    if(!token){
         return children;
         
     }
-    else if(authUser._id && authUser.userName){
+    else if(token){
         return <Navigate to='/account' state={{from:location}} replace ></Navigate>
 
     }

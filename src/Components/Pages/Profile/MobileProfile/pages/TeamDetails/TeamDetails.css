@@ -1,4 +1,4 @@
-.firstGen{
+/* .firstGen{
     background: linear-gradient(to bottom, rgba(109,179,242,1) 0%,rgba(84,163,238,1) 50%,rgba(54,144,240,1) 51%,rgba(30,105,222,1) 100%);
 
 }
@@ -18,8 +18,41 @@
 .fiveGen{
     background: linear-gradient(to bottom,rgb(4, 135, 249) 0%,rgb(58, 148, 233) 50%,rgb(11, 122, 240) 51%,rgba(30,105,222,1) 100%);
 
-}
+} */
 .Withdrawal span{
     font-size: 25px;
     margin-left: 10px;
 }
+
+.swiper-slide {
+    width: 100% !important;
+    margin:  0px !important;
+}
+
+.swiper-slide-active{
+    width: 100% !important;
+    margin:  0px !important;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }

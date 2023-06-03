@@ -3,23 +3,29 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const UserPrivateRoute = ({children}) => {
 
-    const location = useLocation();
-    let userId = localStorage.getItem("ID");
-    const user = JSON.parse(userId);
+   
+      
+      function getCookie(name) {
+        const cookieValue = document.cookie.match(`(^|;)\\s*${name}\\s*=\\s*([^;]+)`);
+        return cookieValue ? cookieValue.pop() : '';
+      }
 
-    if(user === null){
+      
+    const location = useLocation();
+    let token = getCookie('token');
+    if(!token ){
         return <Navigate to='/login' sate={{from:location}} replace ></Navigate>
         
     }else{
-        if(user && user._id){
+        if(token){
             return children;
         }else{
-            <Navigate to='*' ></Navigate>
+            <Navigate to='*' sate={{from:location}} replace></Navigate>
         }
     }
 
   
-   
+    
 }
 
 export default UserPrivateRoute;

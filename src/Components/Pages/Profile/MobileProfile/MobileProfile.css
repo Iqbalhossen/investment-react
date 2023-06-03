@@ -38,11 +38,14 @@ color: #8345E6;
     margin-left: 0px;
 }
 .menu-user-profile img{
-    width: 20%;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
 }
+
 .menu-user-profile h2{
    font-size: 14px;
+   color: #000;
 }
 .mobile-table-details h1{
     font-size: 16px;
@@ -64,6 +67,7 @@ div .scroll {
         display: none;
     } 
     .view-mobile-services{
+        margin-top: 10px;
         display: none;
     }
   
@@ -78,4 +82,14 @@ div .scroll {
 }
 .deposit-mobile-details td{
     font-size: 10px;
+}
+.progressbtn-all-mining{
+    width: 140px;
+    height: auto;
+    margin: auto;
+    margin-top: 5px;
+}
+.mobile-account-show .services-menu{
+    margin-top: 14px !important;
+    
 }

@@ -5,12 +5,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { FreeMode, Scrollbar, Mousewheel, Autoplay, Navigation } from "swiper";
-import { EffectCoverflow, Pagination } from "swiper";
+import { Pagination } from "swiper";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import UsdGenerateSingleItem from './UsdGenerateSingleItem';
 import { AuthContext } from '../../../../Contexts/AuthContext/AuthProvider';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
+import logo1 from './Picture2.png';
+import Picture2 from './services(1).webp';
+import Picture3 from './services(2).webp';
+import Picture4 from './services(3).webp';
+import Picture5 from './services(4).webp';
+
+import servicesBanner1 from './services-bannar-1.gif'
 const AllServices = () => {
 
 
@@ -25,7 +33,7 @@ const AllServices = () => {
 
 
 
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
 
 
@@ -38,7 +46,6 @@ const AllServices = () => {
 
     const handleClose = (data) => {
         setShow(false)
-        setMessage('')
     };
     const handleShow = (id, name, amount, profit) => {
         setShow(true)
@@ -57,7 +64,13 @@ const AllServices = () => {
     const [withdrawAmount, setwithdrawAmount] = useState([])
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/withdraw/accept/view/${authUser.userName}/${authUser._id}`)
+            fetch(`http://localhost:5000/api/user/withdraw/accept/view/${authUser.userName}/${authUser._id}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setwithdrawAmount(data.data.data);
@@ -80,7 +93,13 @@ const AllServices = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/balance/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/bonus/balance/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setbonusAmount(data.data.data);
@@ -104,7 +123,13 @@ const AllServices = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/accept/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/deposit/accept/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setTotal(data.data);
@@ -126,7 +151,13 @@ const AllServices = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/usd/generate/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setUsdGenerate(data);
@@ -148,20 +179,24 @@ const AllServices = () => {
 
 
 
-    const [message, setMessage] = useState([]);
-    // console.log(userTotaldepositAmount)
+    const [message, setMessage] = useState(false);
+    // console.log(userTotalbonusAbount)
 
     const handleActive = (modalDataName, modalDataProfit, modalDataAmount, modalDataId) => {
         const userAmount = userTotaldepositAmount + userTotalbonusAbount - withdrawAmountSum - UsdGenSum;
         // console.log(userAmount);
         if (authUser) {
             if (userAmount >= modalDataAmount) {
+                setMessage(true);
+                setShow(false);
                 const packageBuy = { user_name: authUser.userName, package_id: modalDataId, package_name: modalDataName, package_amount: modalDataAmount, TotalProfit: modalDataProfit };
                 // console.log(packageBuy)
-                fetch('https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/store', {
+                fetch('http://localhost:5000/api/user/usd/generate/store', {
                     method: 'POST',
                     headers: {
-                        'content-type': 'application/json'
+                        'content-type': 'application/json',
+                        'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0'
                     },
                     body: JSON.stringify(packageBuy)
                 })
@@ -169,18 +204,38 @@ const AllServices = () => {
                     .then(data => {
                         // console.log(data);
                         if (data.success === false) {
-                            setMessage(data.data);
                             // console.log(data)
 
                         } else {
-                            setMessage(data);
-                            // setLoading(false);
+                            toast('package buy successfull!', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            });
                         }
 
 
                     })
                     .catch(error => <></>);
                 // console.log('ok')
+            } else {
+                toast('amount is low', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+
+                // console.log("okk")
             }
 
 
@@ -189,41 +244,56 @@ const AllServices = () => {
         }
 
 
-        console.log(message.message)
+
     }
-
-    // useEffect(() => {
-
-    //     // fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/view/`)
-    //     //     .then(res => res.json())
-    //     //     .then(data => {
-    //     //         // setDeposits(data.data);
-    //     //     });
-    //     console.log("ahfhhlkh")
+    // console.log(message.message)
 
 
-    // }, [handleShow])
 
 
     const [UsdGeneratePackage, setUsdGeneratePackage] = useState([]);
 
-    useEffect(() => {      
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/package/view`)
-                .then(res => res.json())
-                .then(data => {
-                    setUsdGeneratePackage(data.data);
-                    // console.log(data)
-                });
+    useEffect(() => {
+        fetch(`http://localhost:5000/api/user/usd/generate/package/view`, {
+            method: 'GET',
+            headers: {
+                'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                setUsdGeneratePackage(data.data);
+                // console.log(data)
+            });
     }, [])
 
     // console.log(modalDataProfit)
     return (
         <>
+ <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            <div className='services-menu container mt-5 d-flex justify-content-between'>
+                {/* <Link ><h6 className=''>Overview</h6></Link> */}
+                {/* <button onClick={() => handleServices('overview')} >Overview</button>
 
-            <div className='services-menu container '>
-                <Link onClick={() => handleServices('overview')}><h6 className=''>Overview</h6></Link>
-                <Link onClick={() => handleServices('packages')}><h6>Packages</h6></Link>
+                <button onClick={() => handleServices('history')} c> Buy Package</button> */}
+
+                <Button onClick={() => handleServices('overview')} className="btn btn-light btn-color fw-bolder text-center">Overview</Button>
+                <Button onClick={() => handleServices('packages')} className="btn btn-light btn-color fw-bolder text-center">Packages</Button>
+
             </div>
+
             <section className={`${action === 'overview' ? 'all-services py-2' : 'all-services py-2  overview'}`}>
 
                 <div className=' container pb-4'>
@@ -231,30 +301,30 @@ const AllServices = () => {
                     <div className='all-services-title'>
                         <h1>Our <h2>Services</h2></h1>
                         {/* <div className="diamond-line-centered-theme-colored service-line"></div> */}
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et ipsum eget tortor consequat faucibus. Quisque aliquet nisl vel ante blandit, et convallis neque lobortis. Donec in gravida tellus, in suscipit eros. Cras scelerisque bibendum posuere.</p>
+                        <p>Unlock Your Financial Potential with These Four Power Services, Designed to Help You Build a Brighter Future, Today!</p>
                     </div>
 
 
-                    <div className='blog-section container '>
+                    <div className='blog-section container services-page'>
                         <div className="row row-cols-1 row-cols-md-2  row-cols-lg-3 g-4">
 
                             <div className="col">
-                                <div className="card  shadow-lg p-3  bg-body rounded border-0">
-                                    <Link to="/usd/generate"><img src="https://static.crowd1.com/cdn-cgi/image/width=500,format=auto,quality=100/static/assets/images/crowd-public/products/product-metaversy.jpg" className="card-img-top" alt="..." /></Link>
+                                <div className="card h-100 shadow-lg overflow-hidden  bg-body rounded border-0">
+                                    <Link to="/usd/generate"><img src={Picture2} className="card-img-top services-zoom" alt="..." /></Link>
                                     <div className="card-body">
                                         <Link to="/usd/generate"><h3>USD Generate</h3></Link>
-                                        <p>Lorem ipsum dolor sit amet,elit. Cum sit ullam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et ipsum eget tortor consequat faucibus</p>
+                                        <p>Unlock the Power of Daily Rewards with Your First Deposit! Start Earning Right Away by Activating Your Package and Receiving a Bonus Every Single Day. Don't Miss Out on This Incredible Opportunity to Boost Your Earnings and Secure Your Financial Future Today!</p>
 
                                     </div>
 
                                 </div>
                             </div>
                             <div className="col">
-                                <div className="card  shadow-lg p-3  bg-body rounded border-0">
-                                    <Link to="/coin/mining"><img src="https://static.crowd1.com/cdn-cgi/image/width=500,format=auto,quality=100/static/assets/images/crowd-public/products/product-metaversy.jpg" className="card-img-top" alt="..." /></Link>
+                                <div className="card h-100 shadow-lg overflow-hidden bg-body rounded border-0">
+                                    <Link to="/coin/mining"><img src={Picture3} className="card-img-top services-zoom" alt="..." /></Link>
                                     <div className="card-body">
                                         <Link to="/coin/mining"><h3>Coin Mining</h3></Link>
-                                        <p>Lorem ipsum dolor sit amet,elit. Cum sit ullam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et ipsum eget tortor consequat faucibus</p>
+                                        <p>It is time for you to take the first step towards financial freedom by purchasing this package today! You will find that your Bonus is waiting for you when you log into your account and claim your Daily Rewards! You can make the most of your Infusion and watch the growth of your earnings with every visit.</p>
 
                                     </div>
 
@@ -262,11 +332,27 @@ const AllServices = () => {
                             </div>
 
                             <div className="col">
-                                <div className="card  shadow-lg p-3  bg-body rounded border-0">
-                                    <Link to="/fdp"><img src="https://static.crowd1.com/cdn-cgi/image/width=500,format=auto,quality=100/static/assets/images/crowd-public/products/product-metaversy.jpg" className="card-img-top" alt="..." /></Link>
+                                <div className="card h-100 shadow-lg overflow-hidden  bg-body rounded border-0">
+                                    <Link to="/fdp"><img src={Picture4} className="card-img-top services-zoom" alt="..." /></Link>
                                     <div className="card-body">
                                         <Link to="/fdp"><h3>Fixed Deposit Package</h3></Link>
-                                        <p>Lorem ipsum dolor sit amet,elit. Cum sit ullam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et ipsum eget tortor consequat faucibus</p>
+                                        <p> Purchase a specific service for a fixed number of days to unlock a world of opportunities. In return for completing all conditions, you will be rewarded with a sum that matches your package. You can propel your success to new heights with this once-in-a-lifetime opportunity!
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="card h-100 shadow-lg overflow-hidden  bg-body rounded border-0">
+                                    <Link to="/entertainment"><img src={Picture5} className="card-img-top services-zoom" alt="..." /></Link>
+                                    <div className="card-body">
+                                        <Link to="/entertainment"><h3>Entertainment</h3></Link>
+                                        <p>It is an entertainment universe,
+                                            every human being needs entertainment as well as work in their life.
+                                            And most people want to fill their lack of entertainment by playing games.
+                                            We have an entertainment universe,
+                                            Here you can have a lot of entertainment by playing some new and unique games.</p>
 
                                     </div>
 
@@ -297,15 +383,15 @@ const AllServices = () => {
                             <div className="col">
                                 <div className=' shadow-lg  mb-5 bg-body rounded'>
                                     <div className='services-price d-flex justify-content-evenly align-items-center'>
-                                        <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/icons-badges/packages/package-20000110.png" className="card-img-top" alt="..." />
+                                        <img src={logo1} className="card-img-top" alt="..." />
                                         <div>
-                                            <p>$129</p>
-                                            <h6>USD </h6>
+                                            {/* <p>$129</p>
+                                            <h6>USD </h6> */}
                                         </div>
                                     </div>
 
                                     <div className='services-name'>
-                                        <h4>NFT Ownership
+                                        <h4>Usd Generate
                                         </h4>
                                     </div>
                                     <div>
@@ -317,59 +403,18 @@ const AllServices = () => {
 
 
                                             <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
+                                                <div className='sevice-silder-img text-center'>
+                                                    <img src={servicesBanner1} alt="..." />
 
                                                 </div>
                                             </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
 
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
 
 
                                         </Swiper>
                                     </div>
                                     <div className='services-name'>
-                                        <h4>Products included
+                                        <h4>Products Package
                                         </h4>
                                     </div>
                                     <div>
@@ -388,349 +433,7 @@ const AllServices = () => {
 
                             </div>
 
-                            <div className="col">
-                                <div className=' shadow-lg  mb-5 bg-body rounded'>
-                                    <div className='services-price d-flex justify-content-evenly align-items-center'>
-                                        <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/icons-badges/packages/package-20000110.png" className="card-img-top" alt="..." />
-                                        <div>
-                                            <p>$129</p>
-                                            <h6>USD </h6>
-                                        </div>
-                                    </div>
 
-                                    <div className='services-name'>
-                                        <h4>NFT Ownership
-                                        </h4>
-                                    </div>
-                                    <div>
-                                        <Swiper
-                                            pagination={true} modules={[Pagination]} className="mySwiper"
-                                        >
-
-
-
-
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-
-
-                                        </Swiper>
-                                    </div>
-                                    <div className='services-name'>
-                                        <h4>Products included
-                                        </h4>
-                                    </div>
-                                    <div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>2 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="col">
-                                <div className=' shadow-lg  mb-5 bg-body rounded'>
-                                    <div className='services-price d-flex justify-content-evenly align-items-center'>
-                                        <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/icons-badges/packages/package-20000110.png" className="card-img-top" alt="..." />
-                                        <div>
-                                            <p>$129</p>
-                                            <h6>USD </h6>
-                                        </div>
-                                    </div>
-
-                                    <div className='services-name'>
-                                        <h4>NFT Ownership
-                                        </h4>
-                                    </div>
-                                    <div>
-                                        <Swiper
-                                            pagination={true} modules={[Pagination]} className="mySwiper"
-                                        >
-
-
-
-
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div className='sevice-silder-img'>
-                                                    <img src="https://static.crowd1.com/static/assets/images/icons-badges/packages/nft/air.gif" alt="..." />
-
-                                                </div>
-                                            </SwiperSlide>
-
-
-                                        </Swiper>
-                                    </div>
-                                    <div className='services-name'>
-                                        <h4>Products included
-                                        </h4>
-                                    </div>
-                                    <div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                        <div className='services-new-details d-flex justify-content-evenly align-items-center py-2'>
-                                            <div className='services-thum-image'>
-                                                <img src="https://static.crowd1.com/cdn-cgi/image/width=320,format=auto,quality=100/static/assets/images/crowd-public/common/logo-miggsterplus.svg" alt="..." />
-                                            </div>
-                                            <div className='services-details'>
-                                                <h5>Miggster+</h5>
-                                                <p>12 month membership</p>
-
-                                                <span>Worth €69</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
 
 
                         </div>
@@ -748,12 +451,11 @@ const AllServices = () => {
 
                 <Modal.Header closeButton>
                     <Modal.Title >{modalDataName}</Modal.Title>
-                    <p className='ms-4 d-block'>{message.message}</p>
                 </Modal.Header>
                 <Modal.Body>
                     <h5>Amount: $ {modalDataAmount}</h5>
                     <h7 className="d-block">Commision: 0.5%</h7>
-                    <h7 className="d-block">Per Day commission: $ {(modalDataProfit * 0.5) / 100}</h7>
+                    <h7 className="d-block">Per Day commission: $ {(modalDataAmount * 0.5) / 100}</h7>
                     <h7 className="d-block">Total Profit: $ {modalDataProfit}</h7>
 
                 </Modal.Body>

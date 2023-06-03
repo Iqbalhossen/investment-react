@@ -122,3 +122,17 @@
 .pakage-items span {
     display: block;
   }
+
+
+  .services-zoom {
+    transition: transform .2s; 
+  }
+  
+  .services-zoom:hover {
+    transform: scale(1.09); 
+  }
+
+  .services-page img{
+    width: 100%;
+    height: auto;
+  }

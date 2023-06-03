@@ -11,22 +11,32 @@ const LoginRoute = ({children}) => {
 const [showUser, setUser] = useState([]);
 
 useEffect(() => {
-    fetch(`https://crypto-iqbalhossen.vercel.app/api/user/view/${InviteUserName}/${id}`)
+if(InviteUserName){
+    fetch(`http://localhost:5000/api/user/view/${InviteUserName}/${id}`, {
+        method: 'GET',
+        headers: {
+            'authorization':
+                'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+        },
+    })
     .then(res => res.json())
     .then(data => {
         setUser(data.data);
-        console.log(data.data)
+        // console.log(data.data)
     });
+}
+   
+
 
 }, [])
 
-    const location = useLocation();
+  
 
     if( showUser?._id === null  ){
         return <Navigate to='*' ></Navigate>
         
     }
-    else if(showUser._id && showUser.userName){
+    else if(showUser?._id && showUser.userName){
         return children;
 
     }

@@ -17,15 +17,52 @@
     .mobile-balance-show hr{
         margin: 8px 0px;
     }
+
+    .card-image  h3{
+       font-size: 16px ;
+    }
     
 }
 @media (min-width: 768px) {
     .mobile-balance-show{
        display: none;
     }
+
+    .card-image{
+        padding: 35px 30px !important;
+    }
     
 }
 
 .deposit-form-area{
     margin: 0px !important;
+}
+
+.usd-generate-area h3{
+    font-size: 20px !important;
+}
+.btn-color{
+    color: #8345E4 !important;
+}
+.usd-gen-mining-color1{
+    background: linear-gradient(90deg, rgb(97, 11, 177) 20%, rgb(244, 160, 5) 100%,rgb(248, 162, 3)100%);
+}
+.usd-gen-mining-color{
+    background: linear-gradient(90deg, rgb(74, 163, 99) 0%, rgb(122, 39, 68) 100%, rgba(0,212,255,1) 100%);
+}
+.usd-gen-mining-color2{
+    background: linear-gradient(90deg, rgb(126, 15, 139) 0%, rgb(16, 65, 146) 100%, rgb(11, 67, 158) 100%);
+}
+.usd-gen-mining-color3{
+    background: linear-gradient(90deg, rgb(43, 132, 61) 0%, rgba(43,90,132,1) 100%, rgba(43,90,132,1) 100%);
+}
+.usd-gen-mining-color4{
+    background: linear-gradient(90deg, rgb(36, 155, 60) 0%, rgb(36, 77, 113) 100%, rgb(57, 109, 155) 100%);
+}
+/* .usd-gen-mining-color4{
+    background: linear-gradient(90deg, rgb(228, 27, 158) 0%, rgba(27,177,228,1) 100%, rgba(27,177,228,1) 100%);
+} */
+
+.usd-gen-mining-color6 {
+    background: linear-gradient(90deg, rgba(36, 77, 153, 0.977) 0%, rgb(100, 101, 30) 100%, rgb(141, 36, 36) 100%);
 }

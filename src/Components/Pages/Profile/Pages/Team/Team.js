@@ -6,18 +6,27 @@ import './Team.css'
 
 const Team = () => {
 
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
 
     const [showUsdGenerate, setUsdGenerate] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/team/view/${authUser.userName}`)
+        if(authUser){
+            fetch(`http://localhost:5000/api/user/genegration/team/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
             .then(res => res.json())
             .then(data => {
                 setUsdGenerate(data.data.data);
-                console.log(data)
+                // console.log(data)
             });
+        }
+ 
 
     }, [])
 
@@ -25,11 +34,17 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelOne/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelOne/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setFirstGen(data.data.data);
-                    console.log(data.data.data)
+                    // console.log(data.data.data)
                 });
         }
 
@@ -53,7 +68,13 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/leveltwo/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/leveltwo/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setSecoundGen(data.data.data);
@@ -69,11 +90,17 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelthree/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelthree/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setthridGen(data.data.data);
-                    console.log(data.data)
+                    // console.log(data.data)
                 });
         }
 
@@ -84,7 +111,13 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelfour/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelfour/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setfourGen(data.data.data);
@@ -98,7 +131,13 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelfive/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelfive/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setfiveGen(data.data.data);
@@ -112,11 +151,17 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelsix/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelsix/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setSixGen(data.data.data);
-                    console.log(data.data.data)
+                    // console.log(data.data.data)
                 });
         }
 
@@ -126,7 +171,13 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelseven/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelseven/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setSevenGen(data.data.data);
@@ -140,7 +191,13 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/leveleight/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/leveleight/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setEightGen(data.data.data);
@@ -154,7 +211,13 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelnine/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelnine/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setNineGen(data.data.data);
@@ -168,7 +231,13 @@ const Team = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/genegration/levelten/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/genegration/levelten/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setTenGen(data.data.data);
@@ -183,11 +252,11 @@ const Team = () => {
     const [genegrationshow, setGenegrationShow] = useState('allGen');
 
     const handleGenegration = (data) => {
-        console.log(data)
+        // console.log(data)
 
         if (data === "1stGen") {
             setGenegrationShow('1stGen')
-            console.log(data)
+            // console.log(data)
         } else if (data === "2ndGen") {
             setGenegrationShow('2ndGen')
         }
@@ -224,7 +293,7 @@ const Team = () => {
         }
     }
 
-    console.log(genegrationshow)
+    // console.log(genegrationshow)
 
     return (
         <>
@@ -232,24 +301,79 @@ const Team = () => {
                 <div className='d-flex justify-content-between mb-2'>
 
 
+                    {genegrationshow === "allGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('allGen')}>All Gen</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('allGen')}>All Gen</Link></div>
+                    }
 
-                    <div ><Link onClick={() => handleGenegration('allGen')}>All Gen</Link></div>
-                    <div ><Link onClick={() => handleGenegration('1stGen')}>Gen 1</Link></div>
-                    <div  ><Link onClick={() => handleGenegration('2ndGen')}>Gen 2</Link></div>
+                    {genegrationshow === "1stGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('1stGen')}>Gen 1</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('1stGen')}>Gen 1</Link></div>
+                    }
 
-                    <div ><Link onClick={() => handleGenegration('3rdGen')}>Gen 3</Link></div>
-                    <div ><Link onClick={() => handleGenegration('4thGen')}>Gen 4</Link></div>
-                    <div ><Link onClick={() => handleGenegration('5thGen')}>Gen 5</Link></div>
-                    <div ><Link onClick={() => handleGenegration('6thGen')}>Gen 6</Link></div>
-                    <div ><Link onClick={() => handleGenegration('7thGen')}>Gen 7</Link></div>
-                    <div ><Link onClick={() => handleGenegration('8thGen')}>Gen 8</Link></div>
-                    <div ><Link onClick={() => handleGenegration('9thGen')}>Gen 9</Link></div>
-                    <div ><Link onClick={() => handleGenegration('10thGen')}>Gen 10</Link></div>
+                    {genegrationshow === "2ndGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('2ndGen')}>Gen 2</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('2ndGen')}>Gen 2</Link></div>
+                    }
+
+                    {genegrationshow === "3rdGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('3rdGen')}>Gen 3</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('3rdGen')}>Gen 3</Link></div>
+                    }
+
+
+                    {genegrationshow === "4thGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('4thGen')}>Gen 4</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('4thGen')}>Gen 4</Link></div>
+                    }
+
+
+                    {genegrationshow === "5thGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('5thGen')}>Gen 5</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('5thGen')}>Gen 5</Link></div>
+                    }
+
+                    {genegrationshow === "6thGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('6thGen')}>Gen 6</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('6thGen')}>Gen 6</Link></div>
+                    }
+
+                    {genegrationshow === "7thGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('7thGen')}>Gen 7</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('7thGen')}>Gen 7</Link></div>
+                    }
+
+                    {genegrationshow === "8thGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('8thGen')}>Gen 8</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('8thGen')}>Gen 8</Link></div>
+                    }
+
+                    {genegrationshow === "9thGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('9thGen')}>Gen 9</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('9thGen')}>Gen 9</Link></div>
+                    }
+
+                    {genegrationshow === "10thGen" ?
+                        <div className='active'><Link onClick={() => handleGenegration('10thGen')}>Gen 10</Link></div>
+                        :
+                        <div ><Link onClick={() => handleGenegration('10thGen')}>Gen 10</Link></div>
+                    }
+
                 </div>
 
                 <h1>Team Details</h1>
                 <div className='scrollbar-x ' style={{ height: '200px' }}>
-                <table className={`${genegrationshow === 'allGen' ? 'd-block table' : 'd-none table'}`}>
+                    <table className={`${genegrationshow === 'allGen' ? 'd-block table' : 'd-none table'}`}>
                         <thead>
                             <tr>
                                 <th scope="col">No.</th>

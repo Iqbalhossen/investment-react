@@ -44,3 +44,8 @@ a .card-title:hover{
     background-color: #262626;
     
 }
+
+.slick-list,
+.slick-track {
+    height: 100%;
+}

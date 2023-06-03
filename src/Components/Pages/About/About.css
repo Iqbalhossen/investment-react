@@ -1,107 +1,495 @@
-.about{
-    text-align: center;
-    background-color: #7e7c96b5;
+
+.abouts {
+    height: 590px;
+    width: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+  }
+  
+  .about-overlay {
+    height: 590px !important;
+    width: 100% !important;
+    background-color: rgba(23, 23, 23, 0.133) !important;
+  }
+  .about-title h1 {
+    font-size: 30px;
+    line-height: 45px;
+    color: #5D5C73;
 }
-.about-title h1{
-    font-size: 40px;
-    line-height: 50px;
-    color:  #5D5C73;
-}
-.about-sub-title p{
+
+.about-sub-title p {
     font-size: 18px;
     line-height: 27px;
     color: #8C7777;
 }
 
-.about-image img{
+.about-image img {
     width: 100%;
 }
-.about-maddile hr{
+
+.about-maddile hr {
     border-top: 3px solid #A3A2B4;
 }
 
-.about-maddile h5{
+.about-maddile h5 {
     font-size: 20px;
     line-height: 28px;
     color: #383838;
     margin-bottom: 15px;
 }
-.about-maddile p{
+
+.about-maddile p {
     font-size: 16px;
     line-height: 25px;
     color: #626265;
     margin-bottom: 5px;
 }
 
-.company-author div div div{
-    background: linear-gradient(90deg, hsla(180, 100%, 77%, 1) 10%, hsla(204, 91%, 57%, 1) 97%);
-
-}
-.company-author  svg{
-  font-size: 50px;
+.company-author-bg-color {
+    background-color: #1A70F9;
 }
 
-.company-author p{
-    text-align:justify;
+.company-author svg {
+    font-size: 50px;
+}
+
+.company-author p {
+    text-align: start;
     font-size: 16px;
     list-style: 30px;
+    color: #ffffff;
+}
+
+.company-author h3 {
+    text-align: start;
+    font-size: 20px;
+    list-style: 30px;
+    color: #ffffff;
 }
 
 
+
+.about-top p {
+    width: 70%;
+    margin: auto;
+}
+
+.wave {
+    margin-top: -145px;
+}
+
+.wave img {
+    width: 100%;
+}
+
+.about-products-title {
+    width: 70%;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.about-product-image {
+    padding: 15px 2px;
+}
+
+.about-products-title h1 {
+    font-size: 35px;
+    color: #2C1400;
+}
+
+.about-products-title p {
+    font-size: 18px;
+    color: #979797;
+}
+
+.about-products {
+    width: 85%;
+    margin: auto;
+}
+
+.about-products h1 {
+    font-size: 35px;
+    color: #2C1400;
+}
+
+.about-products p {
+    margin-top: 7px;
+    font-size: 14px;
+    color: #979797;
+    line-height: 23px;
+}
+
+.about-content h1 {
+    font-size: 35px;
+    color: #2C1400;
+}
+
+.about-content p {
+    margin-top: 7px;
+    font-size: 16px;
+    color: #979797;
+    line-height: 23px;
+}
+
+.person-social-icon svg {
+    font-size: 30px;
+    margin-right: 20px;
+    margin-top: 10px;
+    color: #fff;
+}
+
+.about-blog {
+    margin: 20px 0px;
+}
+
+.about-blog-mobile-show{
+    display: none;
+}
+
 @media(min-width: 0px) and (max-width: 430px) {
-    .about-maddile h5{
+    .about-maddile h5 {
         font-size: 18px;
         line-height: 25px;
     }
 
-    .about-title h1{
+    .about-title h1 {
         font-size: 23px;
         line-height: 30px;
     }
-    .about-sub-title p{
+
+    .about-sub-title p {
         font-size: 16px;
         line-height: 24px;
     }
 
-    
+    .about-products-title {
+        width: 100%;
+        margin: auto;
+        padding-top: 20px;
+    }
+
+    .about-products-title h1 {
+        font-size: 25px;
+    }
+
+    .about-products {
+        width: 95%;
+        margin: auto;
+    }
+
+    .about-content h1 {
+        font-size: 25px;
+        color: #2C1400;
+    }
+    .about-image img {
+        width: 100%;
+        margin-top: 40px;
+    }
+
+
 }
 
 @media (min-width: 430.1px) and (max-width: 575.98px) {
-  
-    .about-maddile h5{
+
+    .about-maddile h5 {
         font-size: 18px;
         line-height: 25px;
     }
 
-    .about-title h1{
+    .about-title h1 {
         font-size: 23px;
         line-height: 30px;
     }
-    .about-sub-title p{
+
+    .about-sub-title p {
         font-size: 16px;
         line-height: 24px;
     }
- }
+
+    .about-products-title {
+        width: 100%;
+        margin: auto;
+        padding-top: 20px;
+    }
+
+    .about-products-title h1 {
+        font-size: 25px;
+    }
+
+    .about-products {
+        width: 95%;
+        margin: auto;
+    }
+
+    .about-content h1 {
+        font-size: 25px;
+        color: #2C1400;
+    }
+    .about-image img {
+        width: 100%;
+        margin-top: 40px;
+    }
+ 
+}
 
 
 
-@media (min-width: 576px) and  (max-width: 992px) {
-  
-    .about-maddile h5{
+@media (min-width: 0px) and (max-width: 767.9px) {
+    .about-blog-mobile{
+        display: none !important;
+    }
+    .about-blog-mobile-show{
+        display: block !important;
+    }
+    .about-top p {
+        width: 96%;
+        margin: auto;
+    }
+    .slider-content{
+        padding: 0px 20px !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+
+    .about-top p {
+        width: 90%;
+        margin: auto;
+    }
+    .about-maddile h5 {
         font-size: 18px;
         line-height: 25px;
     }
 
-    .about-title h1{
+    .about-title h1 {
         font-size: 24px;
         line-height: 30px;
     }
-    .about-sub-title p{
+
+    .about-sub-title p {
         font-size: 16px;
         line-height: 24px;
     }
-    .about-maddile p{
+
+    .about-maddile p {
         font-size: 14px;
         line-height: 24px;
     }
- }
+
+    .about-products-title {
+        width: 100%;
+        margin: auto;
+        padding-top: 20px;
+    }
+
+    .about-products-title h1 {
+        font-size: 25px;
+    }
+
+    .about-products {
+        width: 100%;
+        margin: auto;
+    }
+
+    .about-content h1 {
+        font-size: 25px;
+        color: #2C1400;
+    }
+    .about-image img {
+        width: 100%;
+        margin-top: 40px;
+    }
+}
+
+
+
+@media (min-width: 200px) and (max-width: 272px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -48px;
+    }
+
+}
+
+@media (min-width: 272.1px) and (max-width: 283px) {
+    .abouts div {
+        padding-top: 23px !important;
+
+    }
+
+    .wave {
+        margin-top: -47px;
+    }
+
+}
+
+@media (min-width: 283.1px) and (max-width: 312px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+    .about-image img {
+        width: 100%;
+        margin-top: 40px;
+    }
+    .wave {
+        margin-top: -52px;
+    }
+
+}
+
+@media (min-width: 312.1px) and (max-width: 355px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -55px;
+    }
+
+}
+
+@media (min-width: 355.1px) and (max-width: 398px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -60px;
+    }
+
+}
+
+@media (min-width: 398.1px) and (max-width: 430px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -65px;
+    }
+
+}
+
+@media (min-width: 430.1px) and (max-width: 500px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -69px;
+    }
+
+}
+
+@media (min-width: 500.1px) and (max-width: 600px) {
+    .abouts div {
+        padding: 0px !important;
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -77px;
+    }
+
+}
+
+@media (min-width: 600.1px) and (max-width: 700px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -84px;
+    }
+
+}
+
+@media (min-width: 700.1px) and (max-width: 800px) {
+    .abouts div {
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -95px;
+    }
+
+}
+
+@media (min-width: 800.1px) and (max-width: 900px) {
+    .abouts div {
+        padding: 0px !important;
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -105px;
+    }
+
+}
+
+@media (min-width: 900.1px) and (max-width: 1000px) {
+    .abouts div {
+        padding: 0px !important;
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -115px;
+    }
+
+}
+
+@media (min-width: 1000.1px) and (max-width: 1100px) {
+    .abouts div {
+        padding: 0px !important;
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -125px;
+    }
+
+}
+
+@media (min-width: 1100.1px) and (max-width: 1200px) {
+    .abouts div {
+        padding: 0px !important;
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -135px;
+    }
+
+}
+
+@media (min-width: 1200.1px) and (max-width: 1300px) {
+    .abouts div {
+        padding: 0px !important;
+        padding-top: 20px !important;
+
+    }
+
+    .wave {
+        margin-top: -145px;
+    }
+
+}

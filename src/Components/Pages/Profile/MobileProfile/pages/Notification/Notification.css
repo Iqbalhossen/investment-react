@@ -25,3 +25,8 @@
     margin-bottom: 0px;
 
 }
+
+.notification-btn a{
+    font-size: 10px !important;
+    padding: 0px;
+}

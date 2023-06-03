@@ -1,24 +1,30 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './MobileProfile.css'
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import { Autoplay, Navigation } from "swiper";
-import { Pagination } from "swiper";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../../Contexts/AuthContext/AuthProvider';
 import AllServices from '../../Services/AllServices/AllServices';
+import 'react-circular-progressbar/dist/styles.css';
+import ChangingProgressProvider from "./ChangingProgressProvider";
+import { buildStyles, CircularProgressbar, CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import image from './Picture1.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const MobileProfile = () => {
 
-
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const percentage = 100;
+    const { LoginWithEmail, authUser } = useContext(AuthContext);
     const [pendingtotal, setPendingTotal] = useState([]);
     const [accepttotal, setAcceptTotal] = useState([]);
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/pending/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/deposit/pending/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setPendingTotal(data.data);
@@ -30,7 +36,13 @@ const MobileProfile = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/deposit/accept/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/deposit/accept/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setAcceptTotal(data.data);
@@ -43,7 +55,13 @@ const MobileProfile = () => {
 
     useEffect(() => {
         if (authUser) {
-            fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/view/${authUser.userName}`)
+            fetch(`http://localhost:5000/api/user/usd/generate/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
                 .then(res => res.json())
                 .then(data => {
                     setUsdGenerate(data);
@@ -91,12 +109,21 @@ const MobileProfile = () => {
     const [TotalMining, setTotalMining] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/total/earning/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotalMining(data.data);
-                // console.log(data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/usd/generate/total/earning/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalMining(data.data);
+                    // console.log(data.data);
+                });
+        }
+
 
     }, [])
 
@@ -115,12 +142,21 @@ const MobileProfile = () => {
     const [Totaldirect, setTotaldirect] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/direct/sells/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotaldirect(data.data.data);
-                // console.log(data.data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/direct/sells/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotaldirect(data.data.data);
+                    // console.log(data.data.data);
+                });
+        }
+
 
     }, [])
 
@@ -143,12 +179,20 @@ const MobileProfile = () => {
     const [Totalroi, setTotalroi] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/roi/mint/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotalroi(data.data.data);
-                // console.log(data.data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/roi/mint/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalroi(data.data.data);
+                    // console.log(data.data.data);
+                });
+        }
 
     }, [])
 
@@ -165,12 +209,20 @@ const MobileProfile = () => {
     const [Totalteam, setTotalteam] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/team/sells/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotalteam(data.data.data);
-                // console.log(data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/team/sells/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotalteam(data.data.data);
+                    // console.log(data.data);
+                });
+        }
 
     }, [])
 
@@ -184,12 +236,20 @@ const MobileProfile = () => {
     const [Totalgeneration, setTotaltgeneration] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/generation/bonus/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setTotaltgeneration(data.data.data);
-                // console.log(data.data);
-            });
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/bonus/generation/bonus/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setTotaltgeneration(data.data.data);
+                    // console.log(data.data);
+                });
+        }
 
     }, [])
 
@@ -204,7 +264,13 @@ const MobileProfile = () => {
 
     //  Invite 
 
-    const [copyText, setCopyText] = useState(`http://localhost:3000/invite/${authUser.userName}/${authUser._id}`)
+    const [copyText, setCopyText] = useState(`https://yumeone.com/invite/${authUser?.userName}/${authUser?._id}`, {
+        method: 'GET',
+        headers: {
+            'authorization':
+                'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+        },
+    })
 
     const [copyTextLinkshow, setCopyTextLinkshow] = useState(false)
 
@@ -214,325 +280,243 @@ const MobileProfile = () => {
         // alert("Copied")
     }
 
-    const [Services, setServices] = useState(false);
 
 
-    const [bonusAmount, setbonusAmount] = useState([]);
+    const [withdrawAmount, setwithdrawAmount] = useState([])
+    useEffect(() => {
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/withdraw/accept/view/${authUser.userName}/${authUser._id}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setwithdrawAmount(data.data.data);
+                });
+        }
+
+    }, [])
+
+    let withdrawAmountSum = 0
+    for (let i = 0; i <= withdrawAmount?.length; i++) {
+        if (withdrawAmount[i]) {
+            withdrawAmountSum += parseFloat(withdrawAmount[i]?.amountWithVat);
+        }
+
+    }
+
+    const [pendingwithdrawAmount, setpendingwithdrawAmount] = useState([])
+    useEffect(() => {
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/withdraw/pending/view/${authUser.userName}/${authUser._id}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setpendingwithdrawAmount(data.data.data);
+                });
+        }
+
+    }, [])
+
+    let pendingwithdrawAmountSum = 0
+    for (let i = 0; i <= pendingwithdrawAmount?.length; i++) {
+        if (pendingwithdrawAmount[i]) {
+            pendingwithdrawAmountSum += parseFloat(pendingwithdrawAmount[i]?.amount);
+        }
+
+    }
+
+
+    const [packageMiningbtn, setpackageMining] = useState(false);
+
+
+    const packageMining = () => {
+        setpackageMining(true)
+        toast('Mining Proccessing', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+
+        if (authUser) {
+            // console.log("okk")
+            fetch(`http://localhost:5000/api/user/all/package/bouns/create/${authUser.userName}`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    // console.log(data);
+                    if (data.success === true) {
+                        toast('Mining Successfull', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    } else if (data.success === false) {
+                        console.log(data)
+                        toast('Mining  already token', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    }
+
+
+                })
+                .catch(error => <></>);
+        }
+    }
+
+
+
+    const [myBalance, setMyBalance] = useState(0)
+
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/bonus/balance/view/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setbonusAmount(data.data.data);
-                // console.log(data.data.data);
-            });
-    
-    }, [])
-    
-    let userTotalbonusAbount = 0
-    for (let i = 0; i <= bonusAmount?.length; i++) {
-        if (bonusAmount[i]) {
-            userTotalbonusAbount += parseFloat(bonusAmount[i]?.amount);
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/personal/balance/view/${authUser.userName}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setMyBalance(data.data);
+                });
         }
-    
-    }
+
+
+    }, [])
+    const [usershow, setUser] = useState({})
+   
+    useEffect(() => {
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/view/${authUser.userName}/${authUser._id}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setUser(data.data);
+                });
+        }
+
+    }, [])
+    const [progressBtn, setProgressBtn] = useState(false);
+
+    useEffect(() => {
+        if (authUser) {
+            fetch(`http://localhost:5000/api/user/all/package/bouns/claim/btn/${authUser.userName}/${authUser._id}`, {
+                method: 'GET',
+                headers: {
+                    'authorization':
+                        'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setProgressBtn(data.success);
+                });
+        }
+
+    }, [])
 
     
-    
-const [withdrawAmount, setwithdrawAmount] = useState([])
-useEffect(() => {
-    fetch(`https://crypto-iqbalhossen.vercel.app/api/user/withdraw/accept/view/${authUser.userName}/${authUser._id}`)
-        .then(res => res.json())
-        .then(data => {
-            setwithdrawAmount(data.data.data);
-        });
-
-}, [])
-
-let withdrawAmountSum = 0
-for (let i = 0; i <= withdrawAmount?.length; i++) {
-    if (withdrawAmount[i]) {
-        withdrawAmountSum += parseFloat(withdrawAmount[i]?.amount);
-    }
-
-}
-
-const [pendingwithdrawAmount, setpendingwithdrawAmount] = useState([])
-useEffect(() => {
-    fetch(`https://crypto-iqbalhossen.vercel.app/api/user/withdraw/pending/view/${authUser.userName}/${authUser._id}`)
-        .then(res => res.json())
-        .then(data => {
-            setpendingwithdrawAmount(data.data.data);
-        });
-
-}, [])
-
-let pendingwithdrawAmountSum = 0
-for (let i = 0; i <= pendingwithdrawAmount?.length; i++) {
-    if (pendingwithdrawAmount[i]) {
-        pendingwithdrawAmountSum += parseFloat(pendingwithdrawAmount[i]?.amount);
-    }
-
-}
+    // console.log(progressBtn);
 
 
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+
+            <ToastContainer />
             <section className='container mobile-hide'>
-                <div className='d-flex mobile-header justify-content-between align-items-center py-4'>
+                <div className='d-flex mobile-header justify-content-between align-items-center pt-4'>
                     <div className='menu-balance'>
                         <h3>
                             My Balance
                         </h3>
-                        <p>$ {(acceptAmountSum + userTotalbonusAbount - UsdGenSum).toFixed(2)}</p>
+                        <p>$ {myBalance.toFixed(8)}</p>
                     </div>
-                  <Link to='/account/view'>
-                  <div className='menu-user-profile text-end' >
-                        <div className=''>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgsaRe2zqH_BBicvUorUseeTaE4kxPL2FmOQ&usqp=CAU" className="card-img-top" alt="..." />
-                            <h2>{authUser.name}</h2>
+                    <Link to='/account/view'>
+                        <div className='menu-user-profile text-center' >
+                            <div className=''>
+                                {usershow === null || usershow?.picture === null ? <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgsaRe2zqH_BBicvUorUseeTaE4kxPL2FmOQ&usqp=CAU" className="card-img-top" alt="..." /> : <img src={`http://localhost:5000/${usershow?.picture}`} className="card-img-top" alt="..." />}
+                                <h2>{usershow?.name}</h2>
+                            </div>
                         </div>
-                    </div>
                     </Link>
 
                 </div>
+                <div className='progressbtn-all-mining'>
+                        <ChangingProgressProvider values={[0, 20, 40, 60, 80, 100]}>
+                            {percentage => (
 
-                <Swiper
-                    spaceBetween={90}
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                    }}
-                    // pagination={{
-                    //     clickable: true,
-                    // }}
-                    navigation={true}
-                    modules={[Autoplay]}
-                    className="mySwiper"
-
-                    breakpoints={{
-                        // when window width is >= 640px
-                        // 0: {
-                        //     width: 0,
-                        //     slidesPerView: 2,
-                        // },
-                        640: {
-                            width: 640,
-                            slidesPerView: 2,
-                        },
-                        // when window width is >= 768px
-                        1200: {
-                            width: 1200,
-                            slidesPerView: 3,
-                        },
-                    }}
-                >
-                    <div className='p-2'>
-
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                    <div className="card-body card-image padding-menu">
-                                        <h3><i className="fa-solid fa-money-bill-transfer"></i> Total Balance</h3>
-                                        <div className='price d-flex text-center'>
-                                            <i className="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {(acceptAmountSum + userTotalbonusAbount - UsdGenSum - withdrawAmountSum).toFixed(2)}</p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                    <div className="card-body card-image padding-menu">
-                                        <h3><i className="fa-solid fa-money-bill-transfer"></i> Pending Balance</h3>
-                                        <div className='price d-flex text-center'>
-                                            <i className="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {pendingAmountSum}</p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                    <div className="card-body card-image padding-menu">
-                                        <h3><i className="fa-solid fa-money-bill-transfer"></i>Total Withdraw</h3>
-                                        <div className='price d-flex text-center'>
-                                            <i className="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {withdrawAmountSum}</p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='shadow-lg p-1 mt-3 bg-body rounded'>
-                                <div className="card Withdrawal shadow-lg p-1  bg-body rounded border-0">
-                                    <div className="card-body card-image padding-menu">
-                                        <h3><i className="fa-solid fa-money-bill-transfer"></i>Pending Withdraw</h3>
-                                        <div className='price d-flex text-center'>
-                                            <i className="fa-solid fa-comments-dollar"></i>
-                                            <p>$ {pendingwithdrawAmountSum}</p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </SwiperSlide>
-
-
-
+                                <CircularProgressbarWithChildren value={percentage} styles={buildStyles({
+                                    textColor: "yello",
+                                    pathColor: "#8345E4",
+                                    trailColor: "#FAAC19"
+                                })}>
+                                    <img style={{ width: "130px", margin: "auto", marginTop: '4px' }} src={image} alt="coin" />
+                                </CircularProgressbarWithChildren>
+                            )}
+                        </ChangingProgressProvider>
                     </div>
-
-
-                </Swiper>
-
 
             </section>
 
 
 
+            <div className='view-mobile-services p-1 mt-0 mobile-account-show'>
+                <AllServices></AllServices>
 
+            </div>
 
-
-
-
-           
-          <div className='view-mobile-services'>
-          <AllServices></AllServices>
-           
-          </div>
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <section className='px-3 mt-5 mb-5 mobile-hide'>
-                <Link to="/all/commission">
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section my-1 shadow-lg p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>All Commission</h1>
-                            <p>A floating action button appears   </p>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-                <Link to="/team/details">
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section my-1 shadow-lg p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>Team Details</h1>
-                            <p>A floating action button appears   </p>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-                <Link to="/deposit/record">
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section my-1 shadow-lg p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>Deposit Record</h1>
-                            <p>A floating action button appears   </p>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-                <Link to="/withdraw/record">
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section shadow-lg my-1 p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>Withdraw Record</h1>
-                            <p>A floating action button appears   </p>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-                <Link onClick={handleCopy}>
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section my-1 shadow-lg p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>Invite Friends</h1>
-                            <p>A floating action button appears   </p>
-                            <div className={`${copyTextLinkshow === false ? "alert alert-primary m-auto p-0 d-none" : "alert alert-primary m-auto p-0 text-center d-block mt-2"}`} role="alert">
-                                Copy Invite Link!
-                            </div>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-                <Link to="/notification">
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section my-1 shadow-lg p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>Notification</h1>
-                            <p>A floating action button appears   </p>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-                <Link>
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section my-1 shadow-lg p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>My Info</h1>
-                            <p>A floating action button appears   </p>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-                <Link>
-                    <div className='d-flex d-flex justify-content-between align-items-center mobile-section my-1 shadow-lg p-3 bg-body rounded'>
-                        <div className='mobile-image'>
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </div>
-                        <div className='mobile-content'>
-                            <h1>Logout</h1>
-                            <p>A floating action button appears   </p>
-                        </div>
-                        <div className='arrow'><i className="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </Link>
-
-            </section> */}
-
-            
         </>
     );
 };

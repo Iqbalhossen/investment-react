@@ -1,5 +1,5 @@
 import React from 'react';
-import background from '../../Home/Sliders/1.jpg';
+import background from '../../Home/Sliders/slider-8.webp';
 import './ContactUs.css'
 const ContactUs = () => {
     const styles = {
@@ -10,12 +10,12 @@ const ContactUs = () => {
     }
     return (
         <>
-            <section className="sliders faq" style={styles.header}>
+            <section className="sliders faq contact" style={styles.header}>
                 <div className='silder-overlay' >
                     <div className='container'>
-                        <div className='slider-content pt-lg-5 pt-3'>
+                        <div className='slider-content contact-title pt-lg-5 pt-3'>
                             <h1>Contact Us</h1>
-                            <p>Partner with one of the world’s largest retailers to showcase your brand and products.</p>
+                            <p>Please be as specific as possible about your inquiry or issue, so we can provide you with the best possible assistance. </p>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ const ContactUs = () => {
                         <div className='contact-info d-flex align-items-stretch m-0'>
                         <i class="fa-solid fa-location-dot"></i>
                             <h5>Address:</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
+                            <p>Address :- Modulo Hamamatsucho. Bildg:- 4F 1-3-13. Tokyo, 105-0013 Japan</p>
                         </div>
                         <div className='contact-info d-flex align-items-stretch m-0'>
                         <i class="fa-solid fa-envelope"></i>
@@ -62,7 +62,7 @@ const ContactUs = () => {
                         <div className='contact-info d-flex align-items-stretch m-0'>
                         <i class="fa-solid fa-globe"></i>
                             <h5>WebSite:</h5>
-                            <p>yumeon.com</p>
+                            <p>yumeone.com</p>
                         </div>
 
                     </div>

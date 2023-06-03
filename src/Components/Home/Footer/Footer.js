@@ -18,7 +18,7 @@ const Footer = () => {
 								<li><Link to="/about/us">about us</Link></li>
 								<li><Link to="/products">our services</Link></li>
 								<li><Link to="#">privacy policy</Link></li>
-								<li><Link to="#">affiliate program</Link></li>
+							
 							</ul>
 						</div>
 						<div className="col-12 col-md-6 col-lg-4 footer-col">
@@ -26,19 +26,17 @@ const Footer = () => {
 							<ul>
 								<li><Link to="/faq">FAQ</Link></li>
 								<li><Link to="/contact/us">Contact Us</Link></li>
-								<li><Link to="#">returns</Link></li>
-								<li><Link to="#">payment options</Link></li>
+								
 							</ul>
 						</div>
 						<div className="col-12 col-md-6 col-lg-4 footer-company-details  footer-col">
 						<Link className="logo" to="/">
-                                {/* <img src="https://static.crowd1.com/cdn-cgi/image/width=180,format=auto,quality=100/static/assets/images/crowd-public/home/logo-light.svg" alt="" /> */}
-                                <h4>Yumeone</h4>
+                                <h4>Yume One</h4>
                             </Link>
-							<p>© 2022 Yumeone Network Ltd.</p>
-								<p>Dubai, United Arab Emirates</p>
-								<p>hello@yumeone.com</p>
-								<p>press@yumeone.com</p>
+							<p>© 2023 Yumeone Network Ltd.</p>
+								<p>Modulo Hamamatsucho.  Tokyo, 105-0013 Japan</p>
+								<p>support@yumeone.com</p>
+								
 						</div>
 						<div className="footer-col">
 							<h4>follow us</h4>

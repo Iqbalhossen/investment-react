@@ -28,3 +28,14 @@
     text-align: left;
 
 }
+
+@media (min-width: 0px) and (max-width: 800px) {
+     
+    .choose-title p {
+        color: #979797;
+        width: 90%;
+        margin: auto;
+        font-size: 18px;
+        line-height: 33px;
+    }
+}

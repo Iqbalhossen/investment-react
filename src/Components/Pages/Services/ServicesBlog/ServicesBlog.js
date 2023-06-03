@@ -10,7 +10,7 @@ const ServicesBlog = () => {
                     </div>
                     <div className='col-lg-6 col-md-6 col-12'>
                         <div className='services-blog-content'>
-                            <h1>A New Money <h2>Yumeone</h2></h1>
+                            <h1>A New Money <h2>Yume One</h2></h1>
                             <div class="diamond-line-centered-theme-colored service-line"></div>
                             <h5>We can change life with the teach of new kind of money and use anywhere as our wish.</h5>
                             

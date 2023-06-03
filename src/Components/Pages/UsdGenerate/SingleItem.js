@@ -5,18 +5,26 @@ import { Link } from 'react-router-dom';
 
 const SingleItem = ({data, index}) => {
 
-    const { LoginWithEmail, authUser, setLoading } = useContext(AuthContext);
+    const  { LoginWithEmail, authUser } = useContext(AuthContext);
 
     const time = dateFormat(`${data?.created_at}`, "mmmm dS, yyyy");
 
     const [showUsdGenerate, setUsdGenerate] = useState([]);
 
     useEffect(() => {
-        fetch(`https://crypto-iqbalhossen.vercel.app/api/user/usd/generate/packeage/view/${data.package_amount}/${authUser.userName}`)
-            .then(res => res.json())
-            .then(data => {
-                setUsdGenerate(data);
-            });
+      if(authUser){
+        fetch(`http://localhost:5000/api/user/usd/generate/packeage/view/${data.package_amount}/${authUser.userName}`, {
+            method: 'GET',
+            headers: {
+                'authorization':
+                    'Beare eyJ1c2VyX25hbWUiOiJpcWJhbDExMSIsInVzZXJfaWQiOiI2M2VhNmE3MmU4N2U5ZWJkNGM2OWI1OTAiLCJpYXQiOjE2NzkzMzQ3OTUsImV4cCI6MTY3OTMzODM5NX0',
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            setUsdGenerate(data);
+        });
+      }
 
     }, [])
 
